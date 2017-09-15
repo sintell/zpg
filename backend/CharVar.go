@@ -7,6 +7,6 @@ type CharVar struct {
 	Resting          int
 	CurrentProjectId int
 	CurrentProject   *Project
-	SkillValuesId    int
-	SkillValues      *SkillValue
+	SkillValueId     int
+	SkillValue       *SkillValue
 }
