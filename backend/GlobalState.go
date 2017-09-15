@@ -37,7 +37,7 @@ func GetGlobalState() *GlobalState {
 }
 
 func initGlobalState() *GlobalState {
-	globalState = &GlobalState{}
+	globalState = &GlobalState{make(map[int]InternalState)}
 	globalState.load()
 	return globalState
 }

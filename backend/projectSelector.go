@@ -11,7 +11,7 @@ func getNextProjectAfterProjectStageComplete(characterId int) *Project {
 	if rand.Intn(2) == 0 {
 		return GetGlobalState().get(characterId).CharVarValue.CurrentProject
 	} else {
-		getNextProjectAfterProjectComplete(characterId)
+		return getNextProjectAfterProjectComplete(characterId)
 	}
 }
 
