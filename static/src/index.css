@@ -249,6 +249,10 @@ p {
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
+.game-board {
+  margin: 0 100px 30px;
+}
 /*  End Game  ======================== */
 
 /*  Char  ======================== */
@@ -334,3 +338,65 @@ p {
   margin-bottom: 5xp;
 }
 /*  End Project  ======================== */
+
+/*  Board  ======================== */
+.board {
+  display: flex;
+  border: 1px solid #999;
+}
+
+.board__col {
+  box-sizing: border-box;
+  width: 20%;
+  border-left: 1px solid #999;
+}
+
+.board__col:first-child {
+  border-left: medium none;
+}
+
+.board__title {
+  padding: 5px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.board__title_todo {background-color: #FFF59D;}
+.board__title_analyze {background-color: #F48FB1;}
+.board__title_prog {background-color: #90CAF9;}
+.board__title_test {background-color: #A5D6A7;}
+.board__title_released {background-color: #FFE082;}
+
+.board__content {
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 10px;
+}
+
+.sticker {
+  background: url(images/sticker.png) no-repeat 0 0;
+  background-size: cover;
+  box-sizing: border-box;
+  width: 120px;
+  height: 120px;
+  padding: 8px 8px 12px 12px;
+  margin-bottom: 5px;
+  font-size: 10px;
+  position: relative;
+}
+
+.sticker_red {background-image: url(images/sticker-red.png);}
+.sticker_blue {background-image: url(images/sticker-blue.png);}
+.sticker_green {background-image: url(images/sticker-green.png);}
+.sticker_orange {background-image: url(images/sticker-orange.png);}
+
+.sticker:after {
+  content: '';
+  background: url(images/pin.png) no-repeat 0 0;
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+}
+/*  End Board  ======================== */
