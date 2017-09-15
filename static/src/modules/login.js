@@ -1,37 +1,50 @@
 import axios from 'axios';
 import createReducer from './createReducer';
 
+import {receiveChar} from './character';
+
 const REQUEST_LOGIN = 'REQUEST_LOGIN';
 const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 
-const receivePosts = state => ({
-    type: RECEIVE_LOGIN,
-    payload: state,
-});
+export const receiveLogin = state => {
+    if (state.token) {
+        window.localStorage.setItem('ZPGtoken', state.token);
+    }
 
-const requestPosts = state => ({
+    return {
+        type: RECEIVE_LOGIN,
+        payload: state,
+    };
+};
+
+const requestLogin = state => ({
     type: REQUEST_LOGIN,
     payload: state,
 });
 
 export const authUser = (authData) => (dispatch, getState) => {
-    dispatch(requestPosts());
+    dispatch(requestLogin());
 
-    return axios('account/login', {
-        authData,
+    return axios({
+        method: 'post',
+        url: 'signin',
+        data: authData,
+        responseType: 'json',
     })
         .then(({data}) => {
-            dispatch(receivePosts(data));
-        }, () => {
-            dispatch({
-                error: 'Ошибка бекенда',
-            });
+            dispatch(receiveLogin(data));
+
+            if (data.char) {
+                dispatch(receiveChar(data.char));
+            }
+        }, (e) => {
+            window.alert(`Сорян, что-то упало. ${e.message}`);
         });
 };
 
 export default createReducer({
     isFetching: false,
-    loggedIn: true,
+    loggedIn: window.localStorage.getItem('ZPGtoken'),
 }, {
     [REQUEST_LOGIN]: state => ({
         ...state,

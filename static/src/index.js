@@ -11,7 +11,8 @@ import './index.css';
 
 const store = getOrCreateStore();
 
-axios.defaults.baseURL = 'url/';
+axios.defaults.baseURL = 'http://10.208.10.15:1323/';
+axios.defaults.headers.common['Authorization'] = `Bearer ${window.localStorage.getItem('ZPGtoken')}`;
 
 render(
     <Provider store={store}>

@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
 
-import {authUser} from '../../modules/login';
+import {signUp} from '../../modules/signup';
 import routePath from '../../modules/routePath';
 
 
-class FormLogin extends Component {
+class FormSignUp extends Component {
     state = {
         login: '',
         password: '',
@@ -15,7 +15,7 @@ class FormLogin extends Component {
 
     submit = (event) => {
         event.preventDefault();
-        this.props.authUser(this.state);
+        this.props.signUp(this.state);
     }
 
     changeInput = (event) => {
@@ -24,8 +24,8 @@ class FormLogin extends Component {
         this.setState(state);
     }
 
-    signUp = () => {
-        this.props.push(routePath.signUp);
+    signIn = () => {
+        this.props.push(routePath.signIn);
     }
 
     render() {
@@ -34,7 +34,7 @@ class FormLogin extends Component {
                 <form method='post' onSubmit={this.submit}>
                     <div className='cube'>
                         <div className='form-padding'>
-                            <h2 className='h2'>Вход</h2>
+                            <h2 className='h2'>Регистрация</h2>
                             <div className='login-grid'>
                                 <div className='form-row'>
                                     <label className='form-label'>Логин:</label>
@@ -61,12 +61,12 @@ class FormLogin extends Component {
                             <div className='separate'></div>
                             <div className='form-actions'>
                                 <div className='form-row'>
-                                    <button className='button' type='submit'>Войти</button>
+                                    <button className='button' type='submit'>Зарегистрироваться</button>
                                 </div>
                                 <div className='form-row'>
                                     или
                                 </div>
-                                <span className='link link_switch' onClick={this.signUp}>Зарегистрироваться</span>
+                                <span className='link link_switch' onClick={this.signIn}>Войти</span>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,8 @@ class FormLogin extends Component {
 }
 
 export default connect((state) => ({
-    isFetching: state.login.isFetching,
+    isFetching: state.signup.isFetching,
 }), {
-    authUser,
+    signUp,
     push,
-})(FormLogin);
+})(FormSignUp);
