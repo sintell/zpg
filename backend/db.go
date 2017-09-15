@@ -12,7 +12,7 @@ var db *pg.DB
 
 func initDB() *pg.DB {
 	dbConf := &DBConfig{}
-	ReadConfig(dbConf, "backend/resources/config.json")
+	ReadConfig(dbConf, *configPath)
 	dbOpts, err := pg.ParseURL(dbConf.PgAddr)
 	if err != nil {
 		log.Fatal(err.Error())

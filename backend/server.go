@@ -22,7 +22,7 @@ func initServer() *Server {
 	e.Use(middleware.CORS())
 
 	c := &ServerConfig{}
-	err := ReadConfig(c, "backend/resources/config.json")
+	err := ReadConfig(c, *configPath)
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
