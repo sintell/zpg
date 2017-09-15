@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/labstack/echo/middleware"
+
 	"github.com/labstack/echo"
 )
 
@@ -26,6 +28,16 @@ func initServer() *Server {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+
+	e.POST("/signup", signup)
+	e.POST("/signin", signup)
+	e.GET("/ratings", signup)
+
+	withAuth := e.Group("/game", middleware.JWT([]byte("secret")))
+
+	withAuth.GET("/state", signup)
+	withAuth.GET("/signout", signup)
+	withAuth.POST("/test", testToken)
 
 	return &Server{e, c}
 }
