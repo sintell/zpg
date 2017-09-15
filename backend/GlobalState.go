@@ -10,6 +10,15 @@ func (state GlobalState) get(Id int) InternalState {
 	return state.states[Id]
 }
 
+func (state GlobalState) getIds() []int {
+	result := make([]int, len(state.states))
+	counter := 0
+	for id := range state.states {
+		result[counter] = id
+	}
+	return result
+}
+
 func (state GlobalState) save() {
 	for _, value := range state.states {
 		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert()
