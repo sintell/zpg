@@ -9,10 +9,10 @@ func MainloopTick() {
 
 func tickUser(charId int) {
 	state := GetGlobalState().get(charId)
-	progress(state)
+	progress(&state)
 }
 
-func progress(state InternalState) {
+func progress(state *InternalState) {
 	for _, project := range state.Projects {
 		if project.Active {
 			progressValues := project.ProgrValues
@@ -49,6 +49,11 @@ func progress(state InternalState) {
 		}}
 }
 
-func switchState(state InternalState, project *Project, statusTo ProjectStatus, statusFrom ProjectStatus) {
+func switchState(state *InternalState, project *Project, statusTo ProjectStatus, statusFrom ProjectStatus) {
 	project.Status = statusFrom
+	newProject := getNextProjectAfterProjectStageComplete(state.CharStatValue.Id)
+	if newProject.Id != project.Id {
+		project.Active = false
+		newProject.Active = true
+	}
 }
