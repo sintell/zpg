@@ -4,7 +4,7 @@ import "github.com/go-pg/pg"
 
 type CharVar struct {
 	CharStatId       int         `json:"-"`
-	CharStatValue    CharStat    `json:"-"`
+	CharStat         CharStat    `json:"-"`
 	Stress           int         `json:"stress"`
 	Resting          int         `json:"resting"`
 	CurrentProjectId int         `json:"-"`

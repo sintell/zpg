@@ -5,5 +5,5 @@ type Effect struct {
 	Name        string      `json:"name"`
 	Description string      `json:"desc"`
 	EffectId    int         `json:"-"`
-	EffectValue *SkillValue `json:"values"`
+	Effect      *SkillValue `json:"values"`
 }
