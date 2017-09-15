@@ -1,8 +1,8 @@
 package main
 
 type SkillValue struct {
-	Id int
-	Prog int
-	Testing int
-	Analyze int
+	Id      int `json:"-"`
+	Prog    int `json:"prog"`
+	Testing int `json:"test"`
+	Analyze int `json:"analyze"`
 }
