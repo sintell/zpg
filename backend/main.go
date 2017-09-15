@@ -9,6 +9,7 @@ func init() {
 	initDB()
 	runMigrations()
 	initGlobalState()
+	(&Scheduler{}).Start()
 }
 
 func main() {

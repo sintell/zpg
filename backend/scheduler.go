@@ -1,25 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"time"
 )
 
-type persistSheduler struct {
+type Scheduler struct {
 }
 
-func (ps *persistSheduler) Start() {
+func (ps *Scheduler) Start() {
 	config := &SchedulerConfig{}
-	ReadConfig(config, "backend/resources/config.json")
+	ReadConfig(config, *configPath)
 	persistTicker := time.NewTicker(time.Millisecond * config.PersistInterval)
 	go func() {
-		for range persistTicker.C {
+		for t := range persistTicker.C {
 			GetGlobalState().save()
 		}
 	}()
 
 	mainloopTicker := time.NewTicker(time.Millisecond * config.CalculateInterval)
 	go func() {
-		for range mainloopTicker.C {
+		for t := range mainloopTicker.C {
 			MainloopTick()
 		}
 	}()
