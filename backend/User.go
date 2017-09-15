@@ -2,7 +2,7 @@ package main
 
 type User struct {
 	Id       int
-	Login    string `json:"login,omitempty" validate:"required"`
+	Login    string `json:"login,omitempty" validate:"required" sql:", unique"`
 	Password string `json:"password,omitempty" validate:"required"`
 }
 
