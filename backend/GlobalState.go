@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 )
 
@@ -15,6 +16,8 @@ func (gs GlobalState) get(id CharID) *InternalState {
 	gs.mx.RLock()
 	defer gs.mx.RUnlock()
 
+	fmt.Println("get state for", id)
+
 	return gs.states[id]
 }
 
@@ -22,12 +25,11 @@ func (gs GlobalState) getIds() []CharID {
 	gs.mx.RLock()
 	defer gs.mx.RUnlock()
 
-	result := make([]CharID, len(gs.states))
-	counter := 0
-	for id := range gs.states {
-		result[counter] = id
+	ids := make([]CharID, 0, len(gs.states))
+	for charID := range gs.states {
+		ids = append(ids, charID)
 	}
-	return result
+	return ids
 }
 
 func (gs GlobalState) add(id CharID, state *InternalState) {

@@ -1,18 +1,17 @@
 package main
 
 func MainloopTick() {
-	globalState := GetGlobalState()
-	for _, charID := range globalState.getIds() {
+	charIDs := GetGlobalState().getIds()
+
+	for _, charID := range charIDs {
 		tickUser(charID)
 	}
-
-	// fmt.Printf("%+v\n\n", globalState)
 }
 
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
 	if state.CharVarValue.Resting > 0 {
-		state.CharVarValue.Resting -= 1
+		state.CharVarValue.Resting--
 		return
 	}
 	progress(state)
