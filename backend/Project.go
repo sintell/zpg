@@ -1,9 +1,11 @@
 package main
 
 type Project struct {
-	Id            int
-	ReqValuesId   int
-	ReqValues     *SkillValue
-	ProgrValuesId int
-	ProgrValues   *SkillValue
+	Id            int         `json:"id"`
+	Name          string      `json:"name"`
+	Description   string      `json:"desc"`
+	ReqValuesId   int         `json:"-"`
+	ReqValues     *SkillValue `json:"req_values"`
+	ProgrValuesId int         `json:"-"`
+	ProgrValues   *SkillValue `json:"progress"`
 }

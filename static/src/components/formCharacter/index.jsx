@@ -8,34 +8,33 @@ class FormCharacter extends Component {
         const companyName = 'Cисьски';
 
         return (
-            <div>
-                <fieldset>
-                    <h2>Выбери имя своего персонажа. Выбирай мудро, потому-что ты не сможешь изменить имя позднее.</h2>
-                    <p><input type='text' placeholder='Мудро' autoFocus /></p>
+            <div className="cube">
+                <div>
+                    <h2 className="h2">Выбери имя своего персонажа.</h2>
+                    <p>Выбирай мудро, потому-что ты не сможешь изменить имя позднее.</p>
+                    <p><input className="input" type='text' placeholder='Мудро' autoFocus /></p>
                     <p>Вы будите работаетев компании {companyName}</p>
-                </fieldset>
-                <fieldset>
-                    <h2>Распределите очки характеристик:</h2>
-                    <ol>
-                        <li>
-                            <label>
-                                <input type='number' name='development' />
-                                <span>Программирование</span>
-                            </label>
-                        </li>
-                        <li>
-                            <input type='number' name='analytics' />
-                            <span>Аналитика</span>
-                        </li>
-                        <li>
-                            <input type='number' name='communion' />
-                            <span>Общение</span>
-                        </li>
-                    </ol>
-
+                </div>
+                <div>
+                    <h2 className="h2">Распределите очки характеристик:</h2>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Аналитика</span>
+                        <span className="button-counter button-counter_plus"/>
+                    </div>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Программирование</span>
+                        <span className="button-counter button-counter_plus"/>
+                    </div>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Тестирование</span>
+                        <span className="button-counter button-counter_plus"/>
+                    </div>
                     <p>Осталось очков <output>{COUNT_SCORE}</output></p>
-                </fieldset>
-                <button>Go</button>
+                </div>
+                <button className="button" type="button">Начинаем работать</button>
             </div>
         );
     }

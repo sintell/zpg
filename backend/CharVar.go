@@ -3,14 +3,16 @@ package main
 import "github.com/go-pg/pg"
 
 type CharVar struct {
-	CharStatId       int
-	CharStatValue    CharStat
-	Stress           int
-	Resting          int
-	CurrentProjectId int
-	CurrentProject   *Project
-	SkillValueId     int
-	SkillValue       *SkillValue
+	CharStatId       int         `json:"-"`
+	CharStatValue    CharStat    `json:"-"`
+	Stress           int         `json:"stress"`
+	Resting          int         `json:"resting"`
+	CurrentProjectId int         `json:"-"`
+	CurrentProject   *Project    `json:"-"`
+	SkillValueId     int         `json:"-"`
+	SkillValue       *SkillValue `json:"skills"`
+	Level            int         `json:"level"`
+	Experience       int         `json:"exp"`
 }
 
 func createCharacter(userId int, name string, company string, prog int, testing int, analyze int) {
