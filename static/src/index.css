@@ -57,21 +57,21 @@ p {
 }
 
 .button {
-  background: url(images/button.png) no-repeat 0 0;
+  background: url(images/button-l.png) no-repeat 0 0;
   box-sizing: border-box;
   width: 200px;
   border: 0;
-  height: 36px;
+  height: 40px;
   display: inline-block;
   vertical-align: middle;
-  font: 14px/36px 'Comfortaa', cursive;
+  font: 14px/40px 'Comfortaa', cursive;
   text-align: center;
   color: #fff;
   cursor: pointer;
 }
 
 .button:hover {
-  background-image: url(images/button-hover.png);
+  background-position: 0 -50px;
 }
 
 .button-counter {
@@ -92,11 +92,11 @@ p {
 
 .input {
   border: 0;
-  background: url(images/input.png) no-repeat 0 0;
+  background: url(images/input-l.png) no-repeat 0 0;
   padding: 0 15px;
   width: 200px;
-  height: 36px;
-  font: 16px/36px 'Comfortaa', cursive;
+  height: 40px;
+  font: 16px/40px 'Comfortaa', cursive;
   box-sizing: border-box;
 }
 
