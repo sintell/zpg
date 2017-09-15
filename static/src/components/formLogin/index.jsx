@@ -30,28 +30,46 @@ class FormLogin extends Component {
 
     render() {
         return (
-            <form method='post' onSubmit={this.submit}>
-                <fieldset>
-                    <label htmlFor='login'>
-                        <input
-                            type='text'
-                            name='login'
-                            placeholder='Логин'
-                            value={this.state.login}
-                            onChange={this.changeInput} />
-                    </label>
-                    <label htmlFor='password'>
-                        <input
-                            type='password'
-                            name='password'
-                            placeholder='Пароль'
-                            value={this.state.password}
-                            onChange={this.changeInput} />
-                    </label>
-                    <button type='submit'>Войти</button>
-                </fieldset>
-                <p onClick={this.signUp}>Создать нового персонажа</p>
-            </form>
+            <div className="popup popup_login">
+                <form method='post' onSubmit={this.submit}>
+                    <div className="cube">
+                        <div className="form-padding">
+                            <h2 className="h2">Вход</h2>
+                            <div className="login-grid">
+                                <div className="form-row">
+                                    <label className="form-label">Логин:</label>
+                                    <input
+                                        className="input"
+                                        type='text'
+                                        name='login'
+                                        value={this.state.login}
+                                        onChange={this.changeInput} />
+
+                                </div>
+                                <div className="form-row">
+                                    <label className="form-label">Пароль:</label>
+                                    <input
+                                        className="input"
+                                        type='password'
+                                        name='password'
+                                        value={this.state.password}
+                                        onChange={this.changeInput} />
+                                </div>
+                            </div>
+                            <div className="separate"></div>
+                            <div className="form-actions">
+                                <div className="form-row">
+                                    <button className="button" type='submit'>Войти</button>
+                                </div>
+                                <div className="form-row">
+                                    или
+                                </div>
+                                <span className="link link_switch" onClick={this.signUp}>Создать нового персонажа</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

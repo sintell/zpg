@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa');
 
-
+/*  Typography  ======================== */
 body {
   background: #fefefe;
   margin: 0;
   padding: 0;
   font: 16px/1.2 'Comfortaa', cursive;
+}
+
+input:focus, button:focus {
+  outline: none;
 }
 
 p {
@@ -22,9 +26,42 @@ p {
   margin: 0 0 20px;
 }
 
+.link {
+  color: #0091ea;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.link_switch {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+.link_switch:hover {
+  border-bottom: medium none;
+}
+
+
 .button {
-  border: 2px solid #000;
+  background: url(images/button.png) no-repeat 0 0;
+  box-sizing: border-box;
+  width: 200px;
+  border: 0;
   height: 36px;
+  display: inline-block;
+  vertical-align: middle;
+  font: 14px/36px 'Comfortaa', cursive;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-image: url(images/button-hover.png);
 }
 
 .button-counter {
@@ -49,7 +86,7 @@ p {
   padding: 0 15px;
   width: 200px;
   height: 36px;
-  line-height: 36px;
+  font: 16px/36px 'Comfortaa', cursive;
   box-sizing: border-box;
 }
 
@@ -57,13 +94,30 @@ p {
    outline: none;
 }
 
+.form-padding {
+  padding: 20px;
+}
 
+.form-actions {
+  text-align: center;
+}
+
+.form-row {
+  margin-bottom: 10px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+  /*  End Typography  ======================== */
+
+
+/*  Components  ======================== */
 .cube {
   background: #EEEEEE;
   box-sizing: border-box;
-  width: 600px;
-  padding: 20px;
-  margin: 50px auto 0;
   position: relative;
 }
 
@@ -90,13 +144,84 @@ p {
   transform: skewX(45deg);
 }
 
+.separate {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  margin: 15px 0;
+}
+
+.popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.popup_login {
+  width: 460px;
+}
+
+.popup_reg {
+  width: 800px;
+}
+
+/*  End Components  ======================== */
+
+/*  Form login  ======================== */
+.login-grid {
+  display: flex;
+  justify-content: space-between;
+}
+/*  End Form login  ======================== */
+
+/*  Create char  ======================== */
+
+.create-char__subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.params-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.params-list__item {
+  width: 45%;
+}
+
 .param-item {
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .param-item__name {
   display: inline-block;
-  width: 150px;
+  width: 200px;
   text-align: center;
   margin: 0 8px;
 }
+
+.param-value {
+  background-color: #D32F2F;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align : center;
+  color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.param-value_big {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+}
+/*  End Create char  ======================== */
