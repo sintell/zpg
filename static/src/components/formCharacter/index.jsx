@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Cube from '../cube/cube';
-
-import { H2 } from '../typography/typography';
-import Input from '../form/input';
-import Button from '../form/button';
-import ButtonCounter from '../form/buttonCounter';
-
-import { ParamItem, ParamName } from './styles';
-
 const COUNT_SCORE = 10;
 
 class FormCharacter extends Component {
@@ -17,36 +8,34 @@ class FormCharacter extends Component {
         const companyName = 'Cисьски';
 
         return (
-            <Cube>
+            <div className="cube">
                 <div>
-                    <H2>Выбери имя своего персонажа.</H2>
+                    <h2 className="h2">Выбери имя своего персонажа.</h2>
                     <p>Выбирай мудро, потому-что ты не сможешь изменить имя позднее.</p>
-                    <p><Input type='text' placeholder='Мудро' autoFocus /></p>
+                    <p><input className="input" type='text' placeholder='Мудро' autoFocus /></p>
                     <p>Вы будите работаетев компании {companyName}</p>
                 </div>
                 <div>
-                    <h2>Распределите очки характеристик:</h2>
-                    <div>
-                        <ParamItem>
-                            <ButtonCounter type={'minus'}/>
-                            <ParamName>Аналитика</ParamName>
-                            <ButtonCounter type={'plus'}/>
-                        </ParamItem>
-                        <ParamItem>
-                            <ButtonCounter type={'minus'}/>
-                            <ParamName>Программирование</ParamName>
-                            <ButtonCounter type={'plus'}/>
-                        </ParamItem>
-                        <ParamItem>
-                            <ButtonCounter type={'minus'}/>
-                            <ParamName>Тестирование</ParamName>
-                            <ButtonCounter type={'plus'}/>
-                        </ParamItem>
+                    <h2 className="h2">Распределите очки характеристик:</h2>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Аналитика</span>
+                        <span className="button-counter button-counter_plus"/>
+                    </div>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Программирование</span>
+                        <span className="button-counter button-counter_plus"/>
+                    </div>
+                    <div className="param-item">
+                        <span className="button-counter button-counter_minus"/>
+                        <span className="param-item__name">Тестирование</span>
+                        <span className="button-counter button-counter_plus"/>
                     </div>
                     <p>Осталось очков <output>{COUNT_SCORE}</output></p>
                 </div>
-                <Button>Go</Button>
-            </Cube>
+                <button className="button" type="button">Начинаем работать</button>
+            </div>
         );
     }
 }
