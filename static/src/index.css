@@ -45,7 +45,10 @@ p {
   border-bottom: medium none;
 }
 
+/*  End Typography  ======================== */
 
+
+/*  Global blocks  ======================== */
 .button {
   background: url(images/button.png) no-repeat 0 0;
   box-sizing: border-box;
@@ -111,8 +114,21 @@ p {
   margin-bottom: 5px;
 }
 
-  /*  End Typography  ======================== */
+.progress {
+  height: 10px;
+  border: 1px solid #666666;
+  border-radius: 5px;
+  overflow: hidden;
+}
 
+.progress__value {
+  background-color: #0091ea;
+  width: 0;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/*  End Global blocks  ======================== */
 
 /*  Components  ======================== */
 .cube {
@@ -225,3 +241,96 @@ p {
   font-size: 20px;
 }
 /*  End Create char  ======================== */
+
+
+/*  Game  ======================== */
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+/*  End Game  ======================== */
+
+/*  Char  ======================== */
+.char {
+  margin: 20px;
+}
+
+.char__info {
+  padding-left: 120px;
+}
+
+.char__avatar {
+  float: left;
+  margin-left: -120px;
+  background: url(images/avatar.png) no-repeat 50% 50%;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border: 3px solid #000;
+  border-radius: 50%;
+}
+
+.char__name {
+  margin-bottom: 10px;
+}
+
+.char__stats {
+  width: 200px;
+}
+
+.char__stat {
+  margin-bottom: 5px;
+}
+
+.char__level {
+  position: absolute;
+  display: inline-block;
+  width: 30px;
+  margin-left: -35px;
+  text-align: right;
+  font-size: 20px;
+}
+
+.char__stat {
+  font-size: 12px;
+}
+/*  End Char  ======================== */
+
+/*  Project  ======================== */
+.project {
+  margin: 20px;
+}
+
+.project__name {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.project__info {
+  padding-right: 120px;
+}
+
+.project__image {
+  float: right;
+  margin-right: -120px;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border: 3px solid #000;
+}
+
+.project__stats {
+  width: 200px;
+}
+
+.project__stat {
+  margin-bottom: 10px;
+}
+
+.project__stat-name {
+  font-size: 12px;
+  margin-bottom: 5xp;
+}
+/*  End Project  ======================== */

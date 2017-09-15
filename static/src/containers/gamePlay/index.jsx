@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Character from '../../components/character';
+import Project from '../../components/project';
 import KanbanBoard from '../../components/kanbanBoard';
 import LogOutput from '../../components/logOutput';
 
@@ -94,16 +95,22 @@ class GamePlayContainer extends Component {
         });
 
         return (
-            <div>
-                <Character char={char} activeProject={activeProject} />
-                <KanbanBoard
-                    todoProjects={todoProjects}
-                    progProjects={progProjects}
-                    testProjects={testProjects}
-                    analyzeProjects={analyzeProjects}
-                    releasedProjects={releasedProjects} />
-                <p>Действия:</p>
-                <LogOutput />
+            <div className='game'>
+                <div className='game-info'>
+                    <Character char={char} />
+                    <Project project={activeProject} />
+                </div>
+                <div className='game-board'>
+                    <KanbanBoard
+                        todoProjects={todoProjects}
+                        progProjects={progProjects}
+                        testProjects={testProjects}
+                        analyzeProjects={analyzeProjects}
+                        releasedProjects={releasedProjects} />
+                </div>
+                <div className='game-logs'>
+                    <LogOutput />
+                </div>
             </div>
         );
     }
