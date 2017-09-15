@@ -16,4 +16,11 @@ func (ps *persistSheduler) Start() {
 			GetGlobalState().save()
 		}
 	}()
+
+	mainloopTicker := time.NewTicker(time.Millisecond * config.CalculateInterval)
+	go func() {
+		for range mainloopTicker.C {
+			MainloopTick()
+		}
+	}()
 }
