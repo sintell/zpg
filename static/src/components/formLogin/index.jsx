@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
+
 
 import {authUser} from '../../modules/login';
+import routePath from '../../modules/routePath';
 
 
 class FormLogin extends Component {
@@ -21,8 +24,11 @@ class FormLogin extends Component {
         this.setState(state);
     }
 
+    signUp = () => {
+        this.props.push(routePath.signUp);
+    }
+
     render() {
-        console.log(this.props)
         return (
             <form method='post' onSubmit={this.submit}>
                 <fieldset>
@@ -44,6 +50,7 @@ class FormLogin extends Component {
                     </label>
                     <button type='submit'>Войти</button>
                 </fieldset>
+                <p onClick={this.signUp}>Создать нового персонажа</p>
             </form>
         );
     }
@@ -53,4 +60,5 @@ export default connect((state) => ({
     isFetching: state.login.isFetching,
 }), {
     authUser,
+    push,
 })(FormLogin);

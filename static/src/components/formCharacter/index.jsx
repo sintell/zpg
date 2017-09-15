@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {compose} from 'redux';
 import {connect} from 'react-redux';
 
 const COUNT_SCORE = 10;
@@ -42,8 +41,6 @@ class FormCharacter extends Component {
     }
 }
 
-export default compose(
-    connect((state) => {
-    }, {
-    }),
-)(FormCharacter);
+export default connect((state) => ({
+}), {
+})(FormCharacter);

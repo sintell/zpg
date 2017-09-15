@@ -1,4 +1,5 @@
 export default {
     home: '/',
-    signup: '/signup',
+    signUp: '/signup',
+    signIn: '/signin',
 };

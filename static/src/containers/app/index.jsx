@@ -8,12 +8,16 @@ import routeMap from '../../modules/routePath';
 import FormCharacter from '../../components/formCharacter';
 import FormLogin from '../../components/formLogin';
 
+window.onpopstate = function() {
+    window.history.go();
+};
+
 class App extends Component {
     render() {
         return (
             <div>
-                <Route exact path={routeMap.home} component={FormLogin} />
-                <Route exact path={routeMap.signup} component={FormCharacter} />
+                <Route path={routeMap.home} component={FormLogin} />
+                <Route path={routeMap.signUp} component={FormCharacter} />
             </div>
         );
     }
@@ -21,6 +25,7 @@ class App extends Component {
 
 export default connect(state => ({
     routePath: state.routing.location.pathname,
+    loggedIn: state.login.loggedIn,
 }), {
     push,
 })(App);
