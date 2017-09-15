@@ -6,6 +6,10 @@ import (
 	"github.com/labstack/echo"
 )
 
+type AuthResponse struct {
+	Token string `json:"token,omitempty"`
+}
+
 func signup(c echo.Context) error {
 	u := &User{}
 	if err := c.Bind(u); err != nil {
@@ -33,5 +37,5 @@ func signup(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, t)
+	return c.JSON(http.StatusOK, AuthResponse{Token: t})
 }

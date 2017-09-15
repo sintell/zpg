@@ -7,14 +7,14 @@ import (
 )
 
 func signin(c echo.Context) error {
-	u := &User{}
-	if err := c.Bind(u); err != nil {
+	userReq := &User{}
+	if err := c.Bind(userReq); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	c.Logger().Printf("%+v", u)
-
-	if inputPassword := getHashFromPassword(u.Password); inputPassword != u.Password {
+	u := &User{}
+	GetDB().Model(u).Where("login=?", userReq.Login).Select()
+	if inputPassword := getHashFromPassword(userReq.Password); inputPassword != u.Password {
 		return echo.NewHTTPError(http.StatusUnauthorized, "wrong password")
 	}
 
@@ -23,5 +23,5 @@ func signin(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, t)
+	return c.JSON(http.StatusOK, AuthResponse{Token: t})
 }
