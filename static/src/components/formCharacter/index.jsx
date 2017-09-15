@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import Cube from '../cube/cube';
+
+import { H2 } from '../typography/typography';
+import Input from '../form/input';
+import Button from '../form/button';
+import ButtonCounter from '../form/buttonCounter';
+
+import { ParamItem, ParamName } from './styles';
+
 const COUNT_SCORE = 10;
 
 class FormCharacter extends Component {
@@ -8,35 +17,36 @@ class FormCharacter extends Component {
         const companyName = 'Cисьски';
 
         return (
-            <div>
-                <fieldset>
-                    <h2>Выбери имя своего персонажа. Выбирай мудро, потому-что ты не сможешь изменить имя позднее.</h2>
-                    <p><input type='text' placeholder='Мудро' autoFocus /></p>
+            <Cube>
+                <div>
+                    <H2>Выбери имя своего персонажа.</H2>
+                    <p>Выбирай мудро, потому-что ты не сможешь изменить имя позднее.</p>
+                    <p><Input type='text' placeholder='Мудро' autoFocus /></p>
                     <p>Вы будите работаетев компании {companyName}</p>
-                </fieldset>
-                <fieldset>
+                </div>
+                <div>
                     <h2>Распределите очки характеристик:</h2>
-                    <ol>
-                        <li>
-                            <label>
-                                <input type='number' name='development' />
-                                <span>Программирование</span>
-                            </label>
-                        </li>
-                        <li>
-                            <input type='number' name='analytics' />
-                            <span>Аналитика</span>
-                        </li>
-                        <li>
-                            <input type='number' name='communion' />
-                            <span>Общение</span>
-                        </li>
-                    </ol>
-
+                    <div>
+                        <ParamItem>
+                            <ButtonCounter type={'minus'}/>
+                            <ParamName>Аналитика</ParamName>
+                            <ButtonCounter type={'plus'}/>
+                        </ParamItem>
+                        <ParamItem>
+                            <ButtonCounter type={'minus'}/>
+                            <ParamName>Программирование</ParamName>
+                            <ButtonCounter type={'plus'}/>
+                        </ParamItem>
+                        <ParamItem>
+                            <ButtonCounter type={'minus'}/>
+                            <ParamName>Тестирование</ParamName>
+                            <ButtonCounter type={'plus'}/>
+                        </ParamItem>
+                    </div>
                     <p>Осталось очков <output>{COUNT_SCORE}</output></p>
-                </fieldset>
-                <button>Go</button>
-            </div>
+                </div>
+                <Button>Go</Button>
+            </Cube>
         );
     }
 }
