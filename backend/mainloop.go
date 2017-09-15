@@ -8,8 +8,12 @@ func MainloopTick() {
 }
 
 func tickUser(charId int) {
-	state := GetGlobalState().get(charId)
-	progress(&state)
+	state := &(GetGlobalState().get(charId))
+	if state.CharVarValue.Resting > 0 {
+		state.CharVarValue.Resting -= 1
+		return 
+	}
+	progress(state)
 }
 
 func progress(state *InternalState) {
