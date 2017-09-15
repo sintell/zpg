@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -13,14 +12,14 @@ func (ps *Scheduler) Start() {
 	ReadConfig(config, *configPath)
 	persistTicker := time.NewTicker(time.Millisecond * config.PersistInterval)
 	go func() {
-		for t := range persistTicker.C {
+		for range persistTicker.C {
 			GetGlobalState().save()
 		}
 	}()
 
 	mainloopTicker := time.NewTicker(time.Millisecond * config.CalculateInterval)
 	go func() {
-		for t := range mainloopTicker.C {
+		for range mainloopTicker.C {
 			MainloopTick()
 		}
 	}()
