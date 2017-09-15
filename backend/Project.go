@@ -1,6 +1,10 @@
 package main
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"github.com/go-pg/pg"
+)
 
 type Project struct {
 	ID            int           `json:"id"`
@@ -41,20 +45,29 @@ func NewProject(id CharID) (*Project, error) {
 		Testing: int(rand.Int31n(10)),
 	}
 	progr := &SkillValue{}
-
-	if err := GetDB().Insert(req, progr); err != nil {
+	var p *Project
+	if err := GetDB().RunInTransaction(func(tx *pg.Tx) error {
+		if err := tx.Insert(req, progr); err != nil {
+			return err
+		}
+		p = &Project{
+			CharStatID:    id,
+			Name:          "Project 1",
+			Description:   "Description 1",
+			ReqValuesID:   req.ID,
+			ReqValues:     req,
+			ProgrValuesID: progr.ID,
+			ProgrValues:   progr,
+			Status:        Todo,
+		}
+		if err := tx.Insert(p); err != nil {
+			return err
+		}
+		return nil
+	}); err != nil {
 		return nil, err
 	}
-
-	return &Project{
-		CharStatID:    id,
-		Name:          "Project 1",
-		Description:   "Description 1",
-		ReqValuesID:   req.ID,
-		ReqValues:     req,
-		ProgrValuesID: progr.ID,
-		ProgrValues:   progr,
-	}, nil
+	return p, nil
 }
 
 func CreateProjectsFor(id CharID) ([]*Project, error) {
