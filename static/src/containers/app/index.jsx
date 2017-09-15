@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
+import FormCharacter from '../../components/formCharacter';
+
 
 class App extends Component {
     render() {
         return (
             <div>
-                ЦПГ
+                <FormCharacter />
             </div>
         );
     }
