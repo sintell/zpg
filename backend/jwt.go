@@ -3,6 +3,8 @@ package main
 import (
 	"time"
 
+	"crypto/sha1"
+	"encoding/base64"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
@@ -37,6 +39,12 @@ func testToken(c echo.Context) error {
 	}
 	c.Logger().Printf("%+v", u)
 	return nil
+}
+
+func getHashFromPassword(password string) string {
+	hash := sha1.New()
+	hash.Write([]byte(password))
+	return base64.URLEncoding.EncodeToString(hash.Sum(nil))
 }
 
 type SessionPayload struct {

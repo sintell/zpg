@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func signup(c echo.Context) error {
+func signin(c echo.Context) error {
 	u := &User{}
 	if err := c.Bind(u); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
@@ -14,19 +14,9 @@ func signup(c echo.Context) error {
 
 	c.Logger().Printf("%+v", u)
 
-	u.Password = getHashFromPassword(u.Password)
-
-	err := NewUser(u)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	if inputPassword := getHashFromPassword(u.Password); inputPassword != u.Password {
+		return echo.NewHTTPError(http.StatusUnauthorized, "wrong password")
 	}
-
-	var usr []User
-	GetDB().Model(&usr).Select()
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-	c.Logger().Printf("%+v", usr)
 
 	t, err := createToken(&SessionPayload{u.Id})
 	if err != nil {

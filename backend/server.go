@@ -30,7 +30,7 @@ func initServer() *Server {
 	})
 
 	e.POST("/signup", signup)
-	e.POST("/signin", signup)
+	e.POST("/signin", signin)
 	e.GET("/ratings", signup)
 
 	withAuth := e.Group("/game", middleware.JWT([]byte("secret")))
