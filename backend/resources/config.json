@@ -1,0 +1,5 @@
+{
+    "host": "",
+    "port": 1323,
+    "pg_addr": "postgres://postgres:postgres@10.208.10.94/zpg"
+}

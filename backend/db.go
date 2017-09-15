@@ -11,7 +11,9 @@ import (
 var db *pg.DB
 
 func initDB() *pg.DB {
-	dbOpts, err := pg.ParseURL("postgres://postgres:postgres@10.208.10.94/zpg")
+	dbConf := &DBConfig{}
+	ReadConfig(dbConf, "backend/resources/config.json")
+	dbOpts, err := pg.ParseURL(dbConf.PgAddr)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
