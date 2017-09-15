@@ -17,6 +17,10 @@ var server *Server
 
 func initServer() *Server {
 	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
+
 	c := &ServerConfig{}
 	err := ReadConfig(c, "backend/resources/config.json")
 	if err != nil {
