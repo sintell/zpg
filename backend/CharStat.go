@@ -1,9 +1,9 @@
 package main
 
 type CharStat struct {
-	Id      int
-	Name    string
-	Company string
-	UserId  int
-	User    *User
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	Company string `json:"company"`
+	UserId  int    `json:"-"`
+	User    *User  `json:"-"`
 }
