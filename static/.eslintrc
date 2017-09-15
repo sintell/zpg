@@ -2,7 +2,6 @@
   "parser": "babel-eslint",
   "extends": [
     "airbnb",
-    // https://github.com/hhru/eslint-config-hh
     "hh"
   ],
   "parserOptions": {
