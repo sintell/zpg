@@ -16,9 +16,9 @@ func from(InternalStateValue InternalState) ExternalState {
 	result.Projects = InternalStateValue.Projects
 	result.ActiveEffects = InternalStateValue.ActiveEffects
 	for _, effect := range result.ActiveEffects {
-		result.Character.CharVar.SkillValue.Prog += effect.Effect.EffectValue.Prog
-		result.Character.CharVar.SkillValue.Testing += effect.Effect.EffectValue.Testing
-		result.Character.CharVar.SkillValue.Analyze += effect.Effect.EffectValue.Analyze
+		result.Character.CharVar.SkillValue.Prog += effect.Effect.Effect.Prog
+		result.Character.CharVar.SkillValue.Testing += effect.Effect.Effect.Testing
+		result.Character.CharVar.SkillValue.Analyze += effect.Effect.Effect.Analyze
 	}
 	return result
 }
