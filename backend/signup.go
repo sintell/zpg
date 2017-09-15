@@ -32,7 +32,7 @@ func signup(c echo.Context) error {
 	}
 	c.Logger().Printf("%+v", usr)
 
-	t, err := createToken(&SessionPayload{u.Id})
+	t, err := createToken(&SessionPayload{u.ID})
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}

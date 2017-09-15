@@ -18,7 +18,7 @@ func signin(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnauthorized, "wrong password")
 	}
 
-	t, err := createToken(&SessionPayload{u.Id})
+	t, err := createToken(&SessionPayload{u.ID})
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}

@@ -3,24 +3,28 @@ package main
 import "github.com/go-pg/pg"
 
 type CharVar struct {
-	CharStatId       int         `json:"-"`
+	CharStatID       CharID      `json:"-"`
 	CharStat         CharStat    `json:"-"`
 	Stress           int         `json:"stress"`
 	Resting          int         `json:"resting"`
-	CurrentProjectId int         `json:"-"`
+	CurrentProjectID int         `json:"-"`
 	CurrentProject   *Project    `json:"-"`
-	SkillValueId     int         `json:"-"`
+	SkillValueID     int         `json:"-"`
 	SkillValue       *SkillValue `json:"skills"`
 	Level            int         `json:"level"`
 	Experience       int         `json:"exp"`
 }
 
-func createCharacter(userId int, name string, company string, prog int, testing int, analyze int) {
-	GetDB().RunInTransaction(func(tx *pg.Tx) error {
-		charStat := &CharStat{
+func createCharacter(userID int, name string, company string, prog int, testing int, analyze int) (
+	*CharStat, *CharVar, error) {
+
+	var charStat *CharStat
+	var charVar *CharVar
+	if err := GetDB().RunInTransaction(func(tx *pg.Tx) error {
+		charStat = &CharStat{
 			Name:    name,
 			Company: company,
-			UserId:  userId,
+			UserID:  userID,
 		}
 		if err := tx.Insert(charStat); err != nil {
 			if err := tx.Rollback(); err != nil {
@@ -41,9 +45,9 @@ func createCharacter(userId int, name string, company string, prog int, testing 
 			return err
 		}
 
-		charVar := &CharVar{
-			CharStatId:   charStat.Id,
-			SkillValueId: skillValue.Id,
+		charVar = &CharVar{
+			CharStatID:   charStat.ID,
+			SkillValueID: skillValue.ID,
 		}
 		if err := tx.Insert(charVar); err != nil {
 			if err := tx.Rollback(); err != nil {
@@ -53,5 +57,9 @@ func createCharacter(userId int, name string, company string, prog int, testing 
 		}
 
 		return tx.Commit()
-	})
+	}); err != nil {
+		return nil, nil, nil
+	}
+
+	return charStat, charVar, nil
 }

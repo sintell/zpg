@@ -1,9 +1,9 @@
 package main
 
 type ActiveEffect struct {
-	CharStatId int      `json:"-"`
+	CharStatID int      `json:"-"`
 	CharStat   CharStat `json:"-"`
 	Expires    int      `json:"expires"`
-	EffectId   int      `json:"-"`
+	EffectID   int      `json:"-"`
 	Effect     *Effect
 }

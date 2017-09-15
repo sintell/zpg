@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/labstack/echo"
 	"net/http"
+
+	"github.com/labstack/echo"
 )
 
 func getState(c echo.Context) error {
@@ -10,5 +11,11 @@ func getState(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 	}
-	return c.JSON(http.StatusOK, from(GetGlobalState().get(user.Id)))
+
+	cs, err := user.getCharacter()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, from(GetGlobalState().get(cs.ID)))
 }

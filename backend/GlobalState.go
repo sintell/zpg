@@ -1,26 +1,45 @@
 package main
 
+import "sync"
+
 var globalState *GlobalState
 
 type GlobalState struct {
-	states map[int]InternalState
+	states map[CharID]*InternalState
+	mx     *sync.RWMutex
 }
 
-func (state GlobalState) get(Id int) InternalState {
-	return state.states[Id]
+func (gs GlobalState) get(id CharID) *InternalState {
+	gs.mx.RLock()
+	defer gs.mx.RUnlock()
+
+	return gs.states[id]
 }
 
-func (state GlobalState) getIds() []int {
-	result := make([]int, len(state.states))
+func (gs GlobalState) getIds() []CharID {
+	gs.mx.RLock()
+	defer gs.mx.RUnlock()
+
+	result := make([]CharID, len(gs.states))
 	counter := 0
-	for id := range state.states {
+	for id := range gs.states {
 		result[counter] = id
 	}
 	return result
 }
 
-func (state GlobalState) save() {
-	for _, value := range state.states {
+func (gs GlobalState) add(id CharID, state InternalState) {
+	gs.mx.Lock()
+	defer gs.mx.Unlock()
+
+	gs.states[id] = &state
+}
+
+func (gs GlobalState) save() {
+	gs.mx.RLock()
+	defer gs.mx.RUnlock()
+
+	for _, value := range gs.states {
 		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert()
 		GetDB().Model(value.CharVarValue).OnConflict("(id) DO UPDATE").Insert()
 		GetDB().Model(value.Projects).OnConflict("(id) DO UPDATE").Insert()
@@ -28,13 +47,16 @@ func (state GlobalState) save() {
 	}
 }
 
-func (state GlobalState) load() GlobalState {
-	Ids := []int{}
-	GetDB().Model(&User{}).Column("id").Select(&Ids)
+func (gs GlobalState) load() GlobalState {
+	gs.mx.Lock()
+	defer gs.mx.Unlock()
+
+	Ids := []CharID{}
+	GetDB().Model(&CharStat{}).Column("id").Select(&Ids)
 	for _, id := range Ids {
-		state.states[id] = of(id)
+		gs.states[id] = StateFromDB(id)
 	}
-	return state
+	return gs
 }
 
 func GetGlobalState() *GlobalState {
@@ -46,7 +68,7 @@ func GetGlobalState() *GlobalState {
 }
 
 func initGlobalState() *GlobalState {
-	globalState = &GlobalState{make(map[int]InternalState)}
+	globalState = &GlobalState{states: make(map[CharID]*InternalState), mx: &sync.RWMutex{}}
 	globalState.load()
 	return globalState
 }

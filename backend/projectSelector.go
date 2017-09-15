@@ -2,21 +2,21 @@ package main
 
 import "math/rand"
 
-func getNextProjectAfterProjectComplete(characterId int) *Project {
-	projects := getUnfinishedProjects(characterId)
+func getNextProjectAfterProjectComplete(characterID CharID) *Project {
+	projects := getUnfinishedProjects(characterID)
 	return projects[rand.Intn(len(projects))]
 }
 
-func getNextProjectAfterProjectStageComplete(characterId int) *Project {
+func getNextProjectAfterProjectStageComplete(characterID CharID) *Project {
 	if rand.Intn(2) == 0 {
-		return GetGlobalState().get(characterId).CharVarValue.CurrentProject
+		return GetGlobalState().get(characterID).CharVarValue.CurrentProject
 	} else {
-		return getNextProjectAfterProjectComplete(characterId)
+		return getNextProjectAfterProjectComplete(characterID)
 	}
 }
 
-func getUnfinishedProjects(characterId int) []*Project {
-	return Filter(GetGlobalState().get(characterId).Projects, func(p *Project) bool {
+func getUnfinishedProjects(characterID CharID) []*Project {
+	return Filter(GetGlobalState().get(characterID).Projects, func(p *Project) bool {
 		return !p.isFinished()
 	})
 }

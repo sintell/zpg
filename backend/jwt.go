@@ -5,6 +5,7 @@ import (
 
 	"crypto/sha1"
 	"encoding/base64"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
@@ -13,7 +14,7 @@ func createToken(p *SessionPayload) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-	claims["userId"] = p.UserID
+	claims["userID"] = p.UserID
 
 	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte("secret"))
@@ -25,8 +26,8 @@ func createToken(p *SessionPayload) (string, error) {
 
 func userFromContext(c echo.Context) (*User, error) {
 	token := c.Get("user").(*jwt.Token)
-	uid := int(token.Claims.(jwt.MapClaims)["userId"].(float64))
-	u := &User{Id: uid}
+	uid := int(token.Claims.(jwt.MapClaims)["userID"].(float64))
+	u := &User{ID: uid}
 	if err := GetDB().Select(u); err != nil {
 		return nil, err
 	}

@@ -19,10 +19,23 @@ func createChar(c echo.Context) error {
 
 	user, err := userFromContext(c)
 	if err != nil {
+		c.Logger().Warn(err.Error())
 		return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 	}
 
-	createCharacter(user.Id, cci.Name, "randomCompany", cci.Prog, cci.Testing, cci.Analyze)
+	csv, cvv, err := createCharacter(
+		user.ID,
+		cci.Name,
+		"randomCompany",
+		cci.Prog,
+		cci.Testing,
+		cci.Analyze,
+	)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	GetGlobalState().add(csv.ID, NewInternalState(csv, cvv))
 
 	return c.JSON(http.StatusCreated, nil)
 }
