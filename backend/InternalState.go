@@ -15,6 +15,6 @@ func StateFromDB(id CharID) *InternalState {
 	return state
 }
 
-func NewInternalState(csv *CharStat, cvv *CharVar) InternalState {
-	return InternalState{CharStatValue: csv, CharVarValue: cvv, Projects: CreateProjectsFor(csv.ID)}
+func NewInternalState(csv *CharStat, cvv *CharVar) *InternalState {
+	return &InternalState{CharStatValue: csv, CharVarValue: cvv, Projects: CreateProjectsFor(csv.ID)}
 }

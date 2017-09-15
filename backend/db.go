@@ -20,6 +20,9 @@ func initDB() *pg.DB {
 	pg.SetLogger(log.New(os.Stdout, "db: ", log.Ldate|log.Ltime|log.LUTC))
 
 	db = pg.Connect(dbOpts)
+	if db == nil {
+		log.Fatal("No db connection")
+	}
 
 	db.OnQueryProcessed(func(event *pg.QueryProcessedEvent) {
 		query, err := event.FormattedQuery()

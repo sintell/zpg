@@ -1,14 +1,12 @@
 package main
 
-import "fmt"
-
 func MainloopTick() {
 	globalState := GetGlobalState()
 	for _, charID := range globalState.getIds() {
 		tickUser(charID)
 	}
 
-	fmt.Printf("%+v\n\n", globalState)
+	// fmt.Printf("%+v\n\n", globalState)
 }
 
 func tickUser(charID CharID) {

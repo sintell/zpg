@@ -28,16 +28,16 @@ func (gs GlobalState) getIds() []CharID {
 	return result
 }
 
-func (gs GlobalState) add(id CharID, state InternalState) {
+func (gs GlobalState) add(id CharID, state *InternalState) {
 	gs.mx.Lock()
 	defer gs.mx.Unlock()
 
-	gs.states[id] = &state
+	gs.states[id] = state
 }
 
 func (gs GlobalState) save() {
-	gs.mx.RLock()
-	defer gs.mx.RUnlock()
+	gs.mx.Lock()
+	defer gs.mx.Unlock()
 
 	for _, value := range gs.states {
 		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert()

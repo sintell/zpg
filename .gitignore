@@ -44,3 +44,5 @@ yarn-error.log*
 jira_reports/dev_config.py
 
 data.bin
+
+config.local.json

@@ -6,20 +6,21 @@ import (
 	"github.com/labstack/echo"
 )
 
-func createChar(c echo.Context) error {
-	type CreatingCharacterInfo struct {
-		Name string `json:"name"`
-		SkillValue
-	}
+type CreatingCharacterInfo struct {
+	Name string `json:"name"`
+	SkillValue
+}
 
+func createChar(c echo.Context) error {
 	cci := &CreatingCharacterInfo{}
 	if err := c.Bind(cci); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
+	c.Logger().Errorf("%+v", cci)
 
 	user, err := userFromContext(c)
 	if err != nil {
-		c.Logger().Warn(err.Error())
+		c.Logger().Error(err)
 		return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 	}
 
@@ -35,7 +36,8 @@ func createChar(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	GetGlobalState().add(csv.ID, NewInternalState(csv, cvv))
+	st := NewInternalState(csv, cvv)
+	GetGlobalState().add(csv.ID, st)
 
-	return c.JSON(http.StatusCreated, nil)
+	return c.JSON(http.StatusOK, from(st))
 }

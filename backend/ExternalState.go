@@ -9,8 +9,8 @@ type ExternalState struct {
 	ActiveEffects []*ActiveEffect `json:"effects"`
 }
 
-func from(isv *InternalState) ExternalState {
-	result := ExternalState{}
+func from(isv *InternalState) *ExternalState {
+	result := &ExternalState{}
 	result.Character.CharStat = isv.CharStatValue
 	result.Character.CharVar = isv.CharVarValue
 	result.Projects = isv.Projects

@@ -23,5 +23,10 @@ func signin(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, AuthResponse{Token: t})
+	cs, err := u.getCharacter()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, AuthResponse{Token: t, State: from(GetGlobalState().get(cs.ID))})
 }

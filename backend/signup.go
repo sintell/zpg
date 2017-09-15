@@ -7,7 +7,8 @@ import (
 )
 
 type AuthResponse struct {
-	Token string `json:"token,omitempty"`
+	Token string         `json:"token,omitempty"`
+	State *ExternalState `json:"state,omitempty"`
 }
 
 func signup(c echo.Context) error {
