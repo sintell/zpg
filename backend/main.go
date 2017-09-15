@@ -13,7 +13,6 @@ func init() {
 }
 
 func main() {
-	GetGlobalState().save()
 	server := GetServer()
 	server.Run()
 }

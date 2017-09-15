@@ -27,9 +27,6 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 			UserID:  userID,
 		}
 		if err := tx.Insert(charStat); err != nil {
-			if err := tx.Rollback(); err != nil {
-				return err
-			}
 			return err
 		}
 
@@ -39,9 +36,6 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 			Analyze: analyze,
 		}
 		if err := tx.Insert(skillValue); err != nil {
-			if err := tx.Rollback(); err != nil {
-				return err
-			}
 			return err
 		}
 
@@ -50,15 +44,11 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 			SkillValueID: skillValue.ID,
 		}
 		if err := tx.Insert(charVar); err != nil {
-			if err := tx.Rollback(); err != nil {
-				return err
-			}
 			return err
 		}
-
-		return tx.Commit()
+		return nil
 	}); err != nil {
-		return nil, nil, nil
+		return nil, nil, err
 	}
 
 	return charStat, charVar, nil

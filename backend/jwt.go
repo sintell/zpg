@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"crypto/sha1"
@@ -25,9 +26,16 @@ func createToken(p *SessionPayload) (string, error) {
 }
 
 func userFromContext(c echo.Context) (*User, error) {
-	token := c.Get("user").(*jwt.Token)
-	uid := int(token.Claims.(jwt.MapClaims)["userID"].(float64))
-	u := &User{ID: uid}
+	token, ok := c.Get("user").(*jwt.Token)
+	if !ok {
+		return nil, fmt.Errorf("can't convert to JWT (%+v)", c.Get("user"))
+	}
+	uid, ok := token.Claims.(jwt.MapClaims)["userID"].(float64)
+	if !ok {
+		return nil, fmt.Errorf("can't convert to user id (%+v)",
+			token.Claims.(jwt.MapClaims)["userID"])
+	}
+	u := &User{ID: int(uid)}
 	if err := GetDB().Select(u); err != nil {
 		return nil, err
 	}
