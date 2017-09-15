@@ -8,10 +8,10 @@ type GlobalState struct {
 
 func (state GlobalState) save() {
 	for _, value := range state.states {
-		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert(value.CharStatValue)
-		GetDB().Model(value.CharVarValue).OnConflict("(id) DO UPDATE").Insert(value.CharStatValue)
-		GetDB().Model(value.Projects...).OnConflict("(id) DO UPDATE").Insert(value.CharStatValue)
-		GetDB().Model(value.ActiveEffects...).OnConflict("(id) DO UPDATE").Insert(value.CharStatValue)
+		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert()
+		GetDB().Model(value.CharVarValue).OnConflict("(id) DO UPDATE").Insert()
+		GetDB().Model(value.Projects).OnConflict("(id) DO UPDATE").Insert()
+		GetDB().Model(value.ActiveEffects).OnConflict("(id) DO UPDATE").Insert()
 	}
 }
 

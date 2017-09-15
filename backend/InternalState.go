@@ -3,8 +3,8 @@ package main
 type InternalState struct {
 	CharStatValue CharStat
 	CharVarValue  CharVar
-	Projects      []Project
-	ActiveEffects []ActiveEffect
+	Projects      []*Project
+	ActiveEffects []*ActiveEffect
 }
 
 func of(Id int) InternalState {

@@ -5,8 +5,8 @@ type ExternalState struct {
 		CharStat
 		CharVar
 	} `json:"char"`
-	Projects      []Project      `json:"projects"`
-	ActiveEffects []ActiveEffect `json:"effects"`
+	Projects      []*Project      `json:"projects"`
+	ActiveEffects []*ActiveEffect `json:"effects"`
 }
 
 func from(InternalStateValue InternalState) ExternalState {
