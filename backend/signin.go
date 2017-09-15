@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/go-pg/pg"
+
 	"github.com/labstack/echo"
 )
 
@@ -13,9 +15,15 @@ func signin(c echo.Context) error {
 	}
 
 	u := &User{}
-	GetDB().Model(u).Where("login=?", userReq.Login).Select()
+	if err := GetDB().Model(u).Where("login = ?", userReq.Login).Select(); err != nil {
+		if err == pg.ErrNoRows {
+			return echo.NewHTTPError(http.StatusUnauthorized, "wrong login or password")
+		}
+
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
 	if inputPassword := getHashFromPassword(userReq.Password); inputPassword != u.Password {
-		return echo.NewHTTPError(http.StatusUnauthorized, "wrong password")
+		return echo.NewHTTPError(http.StatusUnauthorized, "wrong login or password")
 	}
 
 	t, err := createToken(&SessionPayload{u.ID})
@@ -25,6 +33,9 @@ func signin(c echo.Context) error {
 
 	cs, err := u.getCharacter()
 	if err != nil {
+		if err == pg.ErrNoRows {
+			return c.JSON(http.StatusOK, AuthResponse{Token: t})
+		}
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 

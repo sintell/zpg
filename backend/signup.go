@@ -17,13 +17,10 @@ func signup(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	c.Logger().Printf("%+v", u)
-
 	u.Password = getHashFromPassword(u.Password)
-
 	err := NewUser(u)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	var usr []User

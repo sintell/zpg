@@ -1,13 +1,15 @@
 package main
 
+import "math/rand"
+
 type Project struct {
 	ID            int           `json:"id"`
-	CharStatId    *CharStat     `json:"-"`
+	CharStatID    CharID        `json:"-"`
 	Name          string        `json:"name"`
 	Description   string        `json:"desc"`
-	ReqValuesId   int           `json:"-"`
+	ReqValuesID   int           `json:"-"`
 	ReqValues     *SkillValue   `json:"req_values"`
-	ProgrValuesId int           `json:"-"`
+	ProgrValuesID int           `json:"-"`
 	ProgrValues   *SkillValue   `json:"progress"`
 	Active        bool          `json:"active"`
 	Status        ProjectStatus `json:"status"`
@@ -17,10 +19,10 @@ type ProjectStatus string
 
 const (
 	Todo     ProjectStatus = "TODO"
-	Analyze  ProjectStatus = "ANALYZE"
-	Prog     ProjectStatus = "PROG"
-	Testing  ProjectStatus = "TEST"
-	Released ProjectStatus = "RELEASED"
+	Analyze                = "ANALYZE"
+	Prog                   = "PROG"
+	Testing                = "TEST"
+	Released               = "RELEASED"
 )
 
 func (p Project) isFinished() bool {
@@ -32,22 +34,38 @@ func (p Project) isFinished() bool {
 		(progrValues.Testing >= reqValues.Testing)
 }
 
-func CreateProjectsFor(id CharID) []*Project {
-	return []*Project{
-		&Project{
-			Name:        "Project 1",
-			Description: "Description 1",
-			ReqValues:   &SkillValue{Analyze: 10, Prog: 10, Testing: 10},
-		},
-		&Project{
-			Name:        "Project 2",
-			Description: "Description 2",
-			ReqValues:   &SkillValue{Analyze: 10, Prog: 10, Testing: 10},
-		},
-		&Project{
-			Name:        "Project 3",
-			Description: "Description 3",
-			ReqValues:   &SkillValue{Analyze: 10, Prog: 10, Testing: 10},
-		},
+func NewProject(id CharID) (*Project, error) {
+	req := &SkillValue{
+		Analyze: int(rand.Int31n(10)),
+		Prog:    int(rand.Int31n(10)),
+		Testing: int(rand.Int31n(10)),
 	}
+	progr := &SkillValue{}
+
+	if err := GetDB().Insert(req, progr); err != nil {
+		return nil, err
+	}
+
+	return &Project{
+		CharStatID:    id,
+		Name:          "Project 1",
+		Description:   "Description 1",
+		ReqValuesID:   req.ID,
+		ReqValues:     req,
+		ProgrValuesID: progr.ID,
+		ProgrValues:   progr,
+	}, nil
+}
+
+func CreateProjectsFor(id CharID) ([]*Project, error) {
+	projects := make([]*Project, 3)
+	for idx := range projects {
+		p, err := NewProject(id)
+		if err != nil {
+			return nil, err
+		}
+		projects[idx] = p
+	}
+
+	return projects, nil
 }

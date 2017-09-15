@@ -16,7 +16,7 @@ func createChar(c echo.Context) error {
 	if err := c.Bind(cci); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	c.Logger().Errorf("%+v", cci)
+	c.Logger().Debugf("%+v", cci)
 
 	user, err := userFromContext(c)
 	if err != nil {

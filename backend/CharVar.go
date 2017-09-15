@@ -29,14 +29,18 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 		if err := tx.Insert(charStat); err != nil {
 			return err
 		}
-
+		skills := &SkillValue{
+			Prog:    prog,
+			Testing: testing,
+			Analyze: analyze,
+		}
+		if err := tx.Insert(skills); err != nil {
+			return err
+		}
 		charVar = &CharVar{
-			CharStatID: charStat.ID,
-			SkillValue: &SkillValue{
-				Prog:    prog,
-				Testing: testing,
-				Analyze: analyze,
-			},
+			CharStatID:   charStat.ID,
+			SkillValueID: skills.ID,
+			SkillValue:   skills,
 		}
 		if err := tx.Insert(charVar); err != nil {
 			return err
