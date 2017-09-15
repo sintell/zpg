@@ -95,21 +95,23 @@ class GamePlayContainer extends Component {
         });
 
         return (
-            <div className='game'>
-                <div className='game-info'>
-                    <Character char={char} />
-                    <Project project={activeProject} />
-                </div>
-                <div className='game-board'>
-                    <KanbanBoard
-                        todoProjects={todoProjects}
-                        progProjects={progProjects}
-                        testProjects={testProjects}
-                        analyzeProjects={analyzeProjects}
-                        releasedProjects={releasedProjects} />
-                </div>
-                <div className='game-logs'>
-                    <LogOutput />
+            <div className='container'>
+                <div className='game'>
+                    <div className='game-info'>
+                        <Character char={char} />
+                        <Project project={activeProject} />
+                    </div>
+                    <div className='game-board'>
+                        <KanbanBoard
+                            todoProjects={todoProjects}
+                            progProjects={progProjects}
+                            testProjects={testProjects}
+                            analyzeProjects={analyzeProjects}
+                            releasedProjects={releasedProjects} />
+                    </div>
+                    <div className='game-logs'>
+                        <LogOutput />
+                    </div>
                 </div>
             </div>
         );

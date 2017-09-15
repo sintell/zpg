@@ -19,6 +19,7 @@ window.onpopstate = function(event) {
 
 class App extends Component {
     render() {
+        return <GamePlayContainer />;
         if (this.props.loggedIn && !this.props.char) {
             return <FormCharacter />;
         }
