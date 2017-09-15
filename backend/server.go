@@ -36,7 +36,7 @@ func initServer() *Server {
 	withAuth := e.Group("/game", middleware.JWT([]byte("secret")))
 
 	withAuth.GET("/state", signup)
-	withAuth.GET("/signout", signup)
+	withAuth.GET("/create_char", createChar)
 	withAuth.POST("/test", testToken)
 
 	return &Server{e, c}

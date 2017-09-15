@@ -5,7 +5,7 @@ import (
 
 	"crypto/sha1"
 	"encoding/base64"
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 )
 
@@ -23,8 +23,9 @@ func createToken(p *SessionPayload) (string, error) {
 	return t, nil
 }
 
-func userFromToken(t *jwt.Token) (*User, error) {
-	uid := int(t.Claims.(jwt.MapClaims)["userId"].(float64))
+func userFromContext(c echo.Context) (*User, error) {
+	token := c.Get("user").(*jwt.Token)
+	uid := int(token.Claims.(jwt.MapClaims)["userId"].(float64))
 	u := &User{Id: uid}
 	if err := GetDB().Select(u); err != nil {
 		return nil, err
@@ -33,7 +34,7 @@ func userFromToken(t *jwt.Token) (*User, error) {
 }
 
 func testToken(c echo.Context) error {
-	u, err := userFromToken(c.Get("user").(*jwt.Token))
+	u, err := userFromContext(c)
 	if err != nil {
 		return err
 	}
