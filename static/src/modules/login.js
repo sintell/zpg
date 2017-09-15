@@ -31,7 +31,7 @@ export const authUser = (authData) => (dispatch, getState) => {
 
 export default createReducer({
     isFetching: false,
-    loggedIn: false,
+    loggedIn: true,
 }, {
     [REQUEST_LOGIN]: state => ({
         ...state,

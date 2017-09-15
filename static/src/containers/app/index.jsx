@@ -7,6 +7,7 @@ import routeMap from '../../modules/routePath';
 
 import FormCharacter from '../../components/formCharacter';
 import FormLogin from '../../components/formLogin';
+import GamePlayContainer from '../../containers/gamePlay';
 
 window.onpopstate = function() {
     window.history.go();
@@ -14,6 +15,10 @@ window.onpopstate = function() {
 
 class App extends Component {
     render() {
+        if (this.props.loggedIn) {
+            return <GamePlayContainer />;
+        }
+
         return (
             <div>
                 <Route path={routeMap.home} component={FormLogin} />
