@@ -6,6 +6,10 @@ type GlobalState struct {
 	states map[int]InternalState
 }
 
+func (state GlobalState) get(Id int) InternalState {
+	return state.states[Id]
+}
+
 func (state GlobalState) save() {
 	for _, value := range state.states {
 		GetDB().Model(value.CharStatValue).OnConflict("(id) DO UPDATE").Insert()

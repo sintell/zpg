@@ -12,7 +12,7 @@ func (ps *persistSheduler) Start() {
 	ReadConfig(config, "backend/resources/config.json")
 	persistTicker := time.NewTicker(time.Millisecond * config.PersistInterval)
 	go func() {
-		for _ := range persistTicker.C {
+		for range persistTicker.C {
 			GetGlobalState().save()
 		}
 	}()
