@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func ReadConfig(conf interface{}, name string) error {
@@ -27,6 +28,11 @@ type ServerConfig struct {
 	DBConfig
 	Host string `json:"host,omitempty"`
 	Port int    `json:"port,omitempty"`
+}
+
+type SchedulerConfig struct {
+	PersistInterval time.Duration `json:"persist_interval"`
+	CalculateInterval time.Duration `json:"calculate_interval"`
 }
 
 func (sc *ServerConfig) Addr() string {

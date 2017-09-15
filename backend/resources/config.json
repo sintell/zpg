@@ -1,5 +1,7 @@
 {
     "host": "",
     "port": 1323,
-    "pg_addr": "postgres://postgres:postgres@10.208.10.94/zpg"
+    "pg_addr": "postgres://postgres:postgres@10.208.10.94/zpg",
+    "persist_interval": 30000,
+    "calculate_interval": 500
 }
