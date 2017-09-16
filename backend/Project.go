@@ -5,16 +5,18 @@ import (
 )
 
 type Project struct {
-	ID            int           `json:"id"`
-	CharStatID    CharID        `json:"-"`
-	Name          string        `json:"name"`
-	Description   string        `json:"desc"`
-	ReqValuesID   int           `json:"-"`
-	ReqValues     *SkillValue   `json:"req_values"`
-	ProgrValuesID int           `json:"-"`
-	ProgrValues   *SkillValue   `json:"progress"`
-	Active        bool          `json:"active"`
-	Status        ProjectStatus `json:"status"`
+	ID             int           `json:"id"`
+	CharStatID     CharID        `json:"-"`
+	Name           string        `json:"name"`
+	Description    string        `json:"desc"`
+	ReqValuesID    int           `json:"-"`
+	ReqValues      *SkillValue   `json:"req_values"`
+	ProgrValuesID  int           `json:"-"`
+	ProgrValues    *SkillValue   `json:"progress"`
+	Active         bool          `json:"active"`
+	Status         ProjectStatus `json:"status"`
+	Age            int           `json:"age"`
+	TimeInReleased int           `json:"-"`
 }
 
 type ProjectStatus string
@@ -29,6 +31,10 @@ const (
 
 func (p Project) isFinished() bool {
 	return p.Status == Released
+}
+
+func (p *Project) isToRemove() bool {
+	return p.TimeInReleased < 20
 }
 
 func NewProject(id CharID, analyze, prog, testing int, name, description string) (*Project, error) {

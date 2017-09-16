@@ -31,5 +31,5 @@ func generateProjectDescription() string {
 }
 
 func needToGenerateProject(id CharID) bool {
-	return (rand.Intn(50) > 40 || (len(GetGlobalState().get(id).Projects) < 3)) && (len(getUnfinishedProjects(id)) < 10)
+	return (rand.Intn(50) > 40 || (len(getUnfinishedProjects(id)) < 3)) && (len(getUnfinishedProjects(id)) < 10)
 }

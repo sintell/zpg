@@ -16,8 +16,12 @@ func MainloopTick() {
 
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
-	state.CharVarValue.Stress ++
+	state.CharVarValue.Stress++
 	randomEvents(state)
+
+	increaseUnfinishedProjectAge(charID)
+	increaseFinishedProjectTimeInRelease(charID)
+	removeOldFinishedProjects(charID)
 
 	if needToGenerateProject(charID) {
 		if p, err := generateProject(state.CharVarValue); p != nil && err == nil {
@@ -47,6 +51,24 @@ func tickUser(charID CharID) {
 		return 
 	}
 	progress(state)
+}
+
+func increaseUnfinishedProjectAge(id CharID) {
+	for _, p := range getUnfinishedProjects(id) {
+		p.Age++
+	}
+}
+
+func increaseFinishedProjectTimeInRelease(id CharID) {
+	for _, p := range getFinishedProjects(id) {
+		p.TimeInReleased++
+	}
+}
+
+func removeOldFinishedProjects(id CharID) {
+	GetGlobalState().get(id).Projects = append(Filter(getFinishedProjects(id), func(project *Project) bool {
+		return !project.isToRemove()
+	}), getUnfinishedProjects(id)...)
 }
 
 func expireEvents(state *InternalState) {
@@ -223,21 +245,21 @@ func levelUp(state *InternalState) {
 	progIncrease := rand.Intn(5)
 	testIncrease := rand.Intn(5)
 	analyzeIncrease := rand.Intn(5)
-	state.CharVarValue.SkillValue.Prog += progIncrease;
+	state.CharVarValue.SkillValue.Prog += progIncrease
 	if progIncrease > 0 {
 		state.EventQueue.push(
 			NewEvent(
 				Level_up,
 				fmt.Sprintf("Навык программирования повышен на %s", progIncrease)))
 	}
-	state.CharVarValue.SkillValue.Testing += testIncrease;
+	state.CharVarValue.SkillValue.Testing += testIncrease
 	if testIncrease > 0 {
 		state.EventQueue.push(
 			NewEvent(
 				Level_up,
 				fmt.Sprintf("Навык тестирования повышен на %s", testIncrease)))
 	}
-	state.CharVarValue.SkillValue.Analyze += analyzeIncrease;
+	state.CharVarValue.SkillValue.Analyze += analyzeIncrease
 	if analyzeIncrease > 0 {
 		state.EventQueue.push(
 			NewEvent(
@@ -249,9 +271,9 @@ func levelUp(state *InternalState) {
 func countExpFromProject(project *Project, charVar *CharVar) int {
 	rv := project.ReqValues
 	cv := charVar.SkillValue
-	return countExpFromSkillValue(rv.Analyze, cv.Analyze) +
+	return (countExpFromSkillValue(rv.Analyze, cv.Analyze) +
 		countExpFromSkillValue(rv.Prog, cv.Prog) +
-		countExpFromSkillValue(rv.Testing, cv.Testing)
+		countExpFromSkillValue(rv.Testing, cv.Testing)) * (1 + 1.0/project.Age)
 }
 
 func countExpFromSkillValue(reqValue, charValue int) int {

@@ -79,6 +79,12 @@ func getUnfinishedProjects(characterID CharID) []*Project {
 	})
 }
 
+func getFinishedProjects(characterID CharID) []*Project {
+	return Filter(GetGlobalState().get(characterID).Projects, func(p *Project) bool {
+		return p.isFinished()
+	})
+}
+
 func Filter(vs []*Project, f func(project *Project) bool) []*Project {
 	vsf := make([]*Project, 0)
 	for _, v := range vs {
