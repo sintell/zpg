@@ -283,6 +283,10 @@ p {
 
 
 /*  Game  ======================== */
+.game {
+  padding-bottom: 250px;
+}
+
 .game-info {
   display: flex;
   justify-content: space-between;
@@ -445,3 +449,23 @@ p {
   left: 50%;
 }
 /*  End Board  ======================== */
+
+/*  Logs  ======================== */
+.logs-wrapper {
+  width: 1200px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-left: -600px;
+}
+
+.logs {
+  box-sizing: border-box;
+  height: 200px;
+  overflow-y: auto;
+  color: #fff;
+  font-family: 'Ubuntu Mono', monospace;
+  padding: 5px;
+  font-size: 14px;
+}
+/*  End Logs  ======================== */
