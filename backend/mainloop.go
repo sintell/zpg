@@ -37,6 +37,11 @@ func tickUser(charID CharID) {
 		}
 		return
 	}
+	if state.CharVarValue.Stress >= 100 {
+		state.CharVarValue.Stress = 100
+		state.CharVarValue.Resting = 10
+		return 
+	}
 	progress(state)
 }
 
