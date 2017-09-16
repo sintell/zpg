@@ -6,10 +6,18 @@ const RECEIVE_CHAR = 'RECEIVE_CHAR';
 const SLEEP_CHAR = 'SLEEP_CHAR';
 export const TICK_MS = 500;
 
-export const receiveChar = state => ({
-    type: RECEIVE_CHAR,
-    payload: state,
-});
+export const receiveChar = (state) => {
+    if (state.char && state.project) {
+        window.localStorage.setItem('ZPGchar', JSON.stringify(state));
+    } else {
+        window.localStorage.removeItem('ZPGchar');
+    }
+
+    return {
+        type: RECEIVE_CHAR,
+        payload: state,
+    };
+};
 
 const requestChar = state => ({
     type: REQUEST_CHAR,
@@ -38,7 +46,6 @@ export const createChar = (charData) => (dispatch) => {
     })
         .then(({data}) => {
             data.createData = new Date();
-            window.localStorage.setItem('ZPGchar', JSON.stringify(data));
             dispatch(receiveChar(data));
         }, (e) => {
             window.alert(`Сорян, что-то упало. ${e.message}`);

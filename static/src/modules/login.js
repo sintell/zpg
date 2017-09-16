@@ -10,6 +10,9 @@ export const receiveLogin = state => {
     if (state.token) {
         window.localStorage.setItem('ZPGtoken', state.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+    } else {
+        window.localStorage.removeItem('ZPGtoken');
+        window.localStorage.removeItem('ZPGchar');
     }
 
     return {

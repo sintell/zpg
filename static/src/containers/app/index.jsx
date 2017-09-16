@@ -5,6 +5,8 @@ import {Route} from 'react-router-dom';
 import styled from 'styled-components';
 
 import routeMap from '../../modules/routePath';
+import {receiveLogin} from '../../modules/login';
+import {receiveChar} from  '../../modules/character';
 
 import FormCharacter from '../../components/formCharacter';
 import FormLogin from '../../components/formLogin';
@@ -34,8 +36,8 @@ class App extends Component {
     }
 
     logOut = () => {
-        window.localStorage.removeItem('ZPGtoken');
-        window.localStorage.removeItem('ZPGchar');
+        this.props.receiveLogin(false);
+        this.props.receiveChar(false);
         this.props.push(routeMap.home);
     }
 
@@ -74,4 +76,6 @@ export default connect(state => ({
     charExist: state.charData.char,
 }), {
     push,
+    receiveLogin,
+    receiveChar,
 })(App);
