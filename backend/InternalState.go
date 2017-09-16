@@ -8,10 +8,21 @@ type InternalState struct {
 }
 
 func StateFromDB(id CharID) *InternalState {
-	state := &InternalState{}
-	GetDB().Model(&state.CharVarValue).Where("char_stat_id = ?", id).Select()
-	GetDB().Model(&state.Projects).Where("char_stat_id = ?", id).Select()
-	GetDB().Model(&state.ActiveEffects).Where("char_stat_id = ?", id).Select()
+	cv := &CharVar{CharStatID: id}
+	var p []*Project
+	var e []*ActiveEffect
+
+	GetDB().Model(cv).Column("char_val.*", "CharStat", "CurrentProject", "SkillValue").Select()
+	GetDB().Model(cv).Where("char_stat_id = ?", id).Select()
+	GetDB().Model(p).Column("projects.*", "ReqValues", "ProgrValues").Where("char_stat_id = ?", id).Select()
+	GetDB().Model(e).Where("char_stat_id = ?", id).Select()
+
+	state := &InternalState{
+		CharStatValue: cv.CharStat,
+		CharVarValue:  cv,
+		Projects:      p,
+		ActiveEffects: e,
+	}
 	return state
 }
 

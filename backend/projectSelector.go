@@ -10,9 +10,8 @@ func getNextProjectAfterProjectComplete(characterID CharID) *Project {
 func getNextProjectAfterProjectStageComplete(characterID CharID) *Project {
 	if rand.Intn(2) == 0 {
 		return GetGlobalState().get(characterID).CharVarValue.CurrentProject
-	} else {
-		return getNextProjectAfterProjectComplete(characterID)
 	}
+	return getNextProjectAfterProjectComplete(characterID)
 }
 
 func getUnfinishedProjects(characterID CharID) []*Project {

@@ -9,10 +9,10 @@ func init() {
 	initDB()
 	runMigrations()
 	initGlobalState()
-	(&Scheduler{}).Start()
 }
 
 func main() {
 	server := GetServer()
+	(&Scheduler{}).Start()
 	server.Run()
 }

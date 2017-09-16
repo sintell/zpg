@@ -18,9 +18,9 @@ func (ps *Scheduler) Start() {
 	}()
 
 	mainloopTicker := time.NewTicker(time.Millisecond * config.CalculateInterval)
-	go func() {
+	time.AfterFunc(time.Millisecond*1000, func() {
 		for range mainloopTicker.C {
 			MainloopTick()
 		}
-	}()
+	})
 }
