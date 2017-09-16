@@ -19,7 +19,7 @@ func generateProject(charVar *CharVar) (*Project, error) {
 }
 
 func generateProjectReqValues(value int) int {
-	return rand.Intn(value) + value
+	return rand.Intn(value)*10 + value
 }
 
 func generateProjectName() string {
