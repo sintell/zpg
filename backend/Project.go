@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-
 	"github.com/go-pg/pg"
 )
 
@@ -34,11 +31,11 @@ func (p Project) isFinished() bool {
 	return p.Status == Released
 }
 
-func NewProject(id CharID) (*Project, error) {
+func NewProject(id CharID, analyze, prog, testing int, name, description string) (*Project, error) {
 	req := &SkillValue{
-		Analyze: int(rand.Int31n(10)),
-		Prog:    int(rand.Int31n(10)),
-		Testing: int(rand.Int31n(10)),
+		Analyze: int(analyze),
+		Prog:    int(prog),
+		Testing: int(testing),
 	}
 	progr := &SkillValue{}
 	var p *Project
@@ -48,8 +45,8 @@ func NewProject(id CharID) (*Project, error) {
 		}
 		p = &Project{
 			CharStatID:    id,
-			Name:          fmt.Sprintf("%s %d", "Project", req.ID),
-			Description:   fmt.Sprintf("%s %d", "Description", req.ID),
+			Name:          name,
+			Description:   description,
 			ReqValuesID:   req.ID,
 			ReqValues:     req,
 			ProgrValuesID: progr.ID,
@@ -66,10 +63,10 @@ func NewProject(id CharID) (*Project, error) {
 	return p, nil
 }
 
-func CreateProjectsFor(id CharID) ([]*Project, error) {
+func CreateProjectsFor(charVar *CharVar) ([]*Project, error) {
 	projects := make([]*Project, 3)
 	for idx := range projects {
-		p, err := NewProject(id)
+		p, err := generateProject(charVar)
 		if err != nil {
 			return nil, err
 		}

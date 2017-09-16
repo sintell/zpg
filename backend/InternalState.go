@@ -29,7 +29,7 @@ func StateFromDB(id CharID) *InternalState {
 }
 
 func NewInternalState(csv *CharStat, cvv *CharVar) *InternalState {
-	prj, _ := CreateProjectsFor(csv.ID)
+	prj, _ := CreateProjectsFor(cvv)
 	prj[0].Active = true
 	prj[0].Status = Analyze
 	cvv.CurrentProjectID = prj[0].ID

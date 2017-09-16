@@ -15,6 +15,15 @@ func MainloopTick() {
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
 	randomEvents(state)
+
+	if needToGenerateProject(charID) {
+		if p, err := generateProject(state.CharVarValue); p != nil && err == nil {
+			state.Projects = append(state.Projects, p)
+		} else {
+			fmt.Println(err.Error())
+		}
+	}
+
 	fmt.Println(state)
 	if state.CharVarValue.Resting > 0 {
 		state.CharVarValue.Resting--
@@ -79,7 +88,7 @@ func progress(state *InternalState) {
 func switchState(state *InternalState, project *Project, statusFrom ProjectStatus, statusTo ProjectStatus) {
 	project.Status = statusTo
 	var newProject *Project
-	if statusTo == ProjectStatus(Released) {
+	if statusTo == Released {
 		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
