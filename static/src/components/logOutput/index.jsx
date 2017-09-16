@@ -43,6 +43,10 @@ var formatter = new Intl.DateTimeFormat("ru", {
 export default class LogOutputComponent extends Component {
     renderMessages(messages) {
         return messages.map((item) => {
+            if (!item.desc) {
+                return null;
+            }
+
             var time = formatter.format(new Date(item.timestamp));
 
             return (
