@@ -19,7 +19,7 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_analyze' />
                         </div>
                         <Progress
-                            value={(project.process.analyze / project.req_values.analyze) * 100}
+                            value={(project.progress.analyze / project.req_values.analyze) * 100}
                             color={COLOR_ANALYZE} />
                     </div>
                     <div className='entity__row'>
@@ -27,7 +27,7 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_prog' />
                         </div>
                         <Progress
-                            value={(project.process.prog / project.req_values.prog) * 100}
+                            value={(project.progress.prog / project.req_values.prog) * 100}
                             color={COLOR_PROG} />
                     </div>
                     <div className='entity__row'>
@@ -35,7 +35,7 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_test' />
                         </div>
                         <Progress
-                            value={(project.process.test / project.req_values.test) * 100}
+                            value={(project.progress.test / project.req_values.test) * 100}
                             color={COLOR_TEST} />
                     </div>
                 </div>

@@ -25,11 +25,12 @@ export const createChar = (charData) => (dispatch, getState) => {
         responseType: 'json',
     })
         .then(({data}) => {
+            console.log(data);
             dispatch(receiveChar({
-                char: charData,
+                char: data,
             }));
 
-            window.localStorage.setItem('ZPGchar', JSON.stringify(charData));
+            window.localStorage.setItem('ZPGchar', JSON.stringify(data));
         }, (e) => {
             window.alert(`Сорян, что-то упало. ${e.message}`);
         });
@@ -39,7 +40,8 @@ const char = window.localStorage.getItem('ZPGchar');
 
 export default createReducer({
     isFetching: false,
-    char: char && JSON.parse(char),
+    char: char && JSON.parse(char).char,
+    projects: char && JSON.parse(char).projects,
 }, {
     [REQUEST_CHAR]: state => ({
         ...state,
@@ -48,6 +50,7 @@ export default createReducer({
     [RECEIVE_CHAR]: (state, action) => ({
         ...state,
         isFetching: false,
-        char: action.payload,
+        char: action.payload && action.payload.char,
+        projects: action.payload && action.payload.projects,
     }),
 });

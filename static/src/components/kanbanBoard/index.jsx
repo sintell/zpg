@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
 
+const COLORS = {
+    todo: 'yellow',
+    analyze: 'red',
+    prog: 'blue',
+    test: 'green',
+    released: 'orange',
+};
 
 export default class KanbanBoardComponent extends Component {
     renderProjectsTokanbanBoard(projects, type) {

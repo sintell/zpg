@@ -23,7 +23,7 @@ const requestLogin = state => ({
     payload: state,
 });
 
-export const authUser = (authData) => (dispatch, getState) => {
+export const authUser = (authData) => (dispatch) => {
     dispatch(requestLogin());
 
     return axios({

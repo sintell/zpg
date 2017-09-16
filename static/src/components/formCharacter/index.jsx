@@ -142,7 +142,7 @@ class FormCharacter extends Component {
 }
 
 export default connect((state) => ({
-    isFetching: state.char.isFetching,
+    isFetching: state.charData.isFetching,
 }), {
     createChar,
 })(FormCharacter);

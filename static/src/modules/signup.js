@@ -2,7 +2,6 @@ import axios from 'axios';
 import createReducer from './createReducer';
 
 import {receiveLogin} from './login';
-import {receiveChar} from './character';
 
 const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
 const RECEIVE_SIGNUP = 'RECEIVE_SIGNUP';
@@ -33,10 +32,8 @@ export const signUp = (signUpData) => (dispatch, getState) => {
         responseType: 'json',
     })
         .then(({data}) => {
-            console.log(data);
             dispatch(receiveSignUp(data));
             dispatch(receiveLogin(data));
-            dispatch(receiveChar(data));
 
             // if (data.token) {
             //     window.localStorage.setItem('ZPGtoken', data.token);
