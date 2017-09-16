@@ -61,7 +61,7 @@ export default class LogOutputComponent extends Component {
         const messages = this.props.messages;
 
         return (
-            <div className='cube' style={{background: '#2f2d2e'}}>
+            <div style={{background: '#2f2d2e', height: '100%'}}>
                 <div className='logs'>
                     {this.renderMessages(messages)}
                 </div>

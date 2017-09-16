@@ -10,30 +10,33 @@ class Ratings extends Component {
 
     renderItem(item, index) {
         return (
-            <tr key={item.id}>
-                <td className='rating-table__col-place'>{index + 1}</td>
-                <td width='60'>
-                    <span className={`entity__image entity__image_${(item.id % 3) + 1} entity__image_rating`} />
-                </td>
-                <td>{item.name}</td>
-                <td className='rating-table__col-level'>{item.level}</td>
-                <td>
-                    <div className='rating-skills'>
-                        <div className='rating-skill'>
-                            <span className='icon-stat icon-stat_analyze' /><br />
-                            1
-                        </div>
-                        <div className='rating-skill'>
-                            <span className='icon-stat icon-stat_prog' /><br />
-                            1
-                        </div>
-                        <div className='rating-skill'>
-                            <span className='icon-stat icon-stat_test' /><br />
-                            1
+            <div>
+                <div className='rating-row' key={item.id}>
+                    <div className='rating-col rating-col_place'>{index + 1}</div>
+                    <div className='rating-col rating-col_image'>
+                        <span className={`entity__image entity__image_${(item.id % 3) + 1} entity__image_rating`} />
+                    </div>
+                    <div className='rating-col rating-col_name'>{item.name}</div>
+                    <div className='rating-col rating-col_level'>{item.level}</div>
+                    <div className='rating-col rating-col_place'>
+                        <div className='rating-skills'>
+                            <div className='rating-skill'>
+                                <span className='icon-stat icon-stat_analyze' /><br />
+                                1
+                            </div>
+                            <div className='rating-skill'>
+                                <span className='icon-stat icon-stat_prog' /><br />
+                                1
+                            </div>
+                            <div className='rating-skill'>
+                                <span className='icon-stat icon-stat_test' /><br />
+                                1
+                            </div>
                         </div>
                     </div>
-                </td>
-            </tr>
+                </div>
+                <div className='separate' />
+            </div>
         );
     }
 
@@ -42,19 +45,13 @@ class Ratings extends Component {
 
         return (
             <div className='rating-container'>
-                <table className='rating-table'>
-                    <thead>
-                        <tr>
-                            <th width='90'>Место</th>
-                            <th colSpan='2'>Персонаж</th>
-                            <th>Уровень</th>
-                            <th>Характеристики</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {items.map(this.renderItem)}
-                    </tbody>
-                </table>
+                <div className='rating-row rating-row_head'>
+                    <div className='rating-col rating-col_place'>Место</div>
+                    <div className='rating-col rating-col_char'>Персонаж</div>
+                    <div className='rating-col rating-col_level'>Уровень</div>
+                    <div className='rating-col rating-col_place'>Характеристики</div>
+                </div>
+                {items.map(this.renderItem)}
             </div>
         );
     }

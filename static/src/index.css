@@ -51,7 +51,7 @@ p {
 
 /*  Global blocks  ======================== */
 .container {
-  width: 1200px;
+  width: 1000px;
   padding: 0 20px;
   margin: 0 auto;
 }
@@ -125,7 +125,7 @@ p {
   box-sizing: border-box;
   width: 250px;
   height: 30px;
-  padding: 3px;
+  padding: 3px 4px;
   font-size: 12px;
   position: relative;
   overflow: hidden;
@@ -283,6 +283,10 @@ p {
 
 
 /*  Game  ======================== */
+.game {
+  padding-left: 300px;
+}
+
 .game-info {
   display: flex;
   justify-content: space-between;
@@ -291,6 +295,14 @@ p {
 
 .game-board {
   margin: 0 100px 30px;
+}
+
+.game-logs {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 /*  End Game  ======================== */
 
@@ -488,11 +500,11 @@ p {
 /*  Logs  ======================== */
 .logs {
   box-sizing: border-box;
-  height: 200px;
   overflow-y: auto;
   color: #fff;
   font-family: 'Ubuntu Mono', monospace;
   padding: 5px;
+  height: 100%;
   font-size: 14px;
 }
 /*  End Logs  ======================== */
@@ -503,28 +515,33 @@ p {
   margin: 20px auto;
 }
 
-.rating-table {
-  width: 100%;
-  border: 1px solid #999;
-  border-spacing: 0;
+.rating-container .separate {
+  margin: 0;
 }
 
-.rating-table th {
-  border: 1px solid #999;
+.rating-row {
+  display: flex;
+}
+
+.rating-row_head {
+  border-bottom: 2px solid #333;
+}
+
+.rating-row_head .rating-col {
   padding: 5px;
-  text-align: left;
-  border-bottom-width: 2px;
 }
 
-.rating-table td {
+.rating-col {
+  box-sizing: border-box;
   padding: 5px;
-  border: 1px solid #999;
 }
 
-.rating-table__col-place,
-.rating-table__col-level {
-  text-align: center;
-}
+.rating-col_place {width: 90px; text-align: center; padding-top: 30px;}
+.rating-col_char {width: 270px;}
+.rating-col_image {width: 70px;}
+.rating-col_name {width: 200px; padding-top: 30px;}
+.rating-col_level {width: 120px; text-align: center; padding-top: 30px;}
+.rating-col_skills {width: 200px;}
 
 .rating-skills {
   display: flex;

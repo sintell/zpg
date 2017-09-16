@@ -42,8 +42,8 @@ class GamePlayContainer extends Component {
         }, false);
 
         return (
-            <div className='container'>
-                <div className='game'>
+            <div className='game'>
+                <div className='container'>
                     <div className='game-info'>
                         <Character char={char} />
                         { activeProject ? <Project project={activeProject} /> : ''}
