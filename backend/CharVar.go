@@ -3,6 +3,7 @@ package main
 import "github.com/go-pg/pg"
 
 type CharVar struct {
+	ID               int         `json:"-"`
 	CharStatID       CharID      `json:"-"`
 	CharStat         *CharStat   `json:"-"`
 	Stress           int         `json:"stress"`
