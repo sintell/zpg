@@ -14,14 +14,14 @@ class Character extends Component {
     }
 
     render() {
-        const {id, level, exp, stress, skills, name} = this.props.char;
+        const {id, level, exp, stress, skills, name, company} = this.props.char;
         const maxExp = 100;
         const maxStress = 100;
         let charImageIndex = (id % 3) + 1;
 
         return (
             <div className='entity'>
-                <div className='entity__name'>{name}</div>
+                <div className='entity__name'>{name} ({company})</div>
                 <div className='entity__info'>
                     <div className={`entity__image entity__image_${charImageIndex}`} />
                     <div className='entity__row'>

@@ -63,7 +63,7 @@ class FormCharacter extends Component {
                                     onChange={this.changeInput}
                                     autoFocus />
                             </p>
-                            <p>Вы будете работаеть в компании "{companyName}"</p>
+                            <p>Вы будете работаеть в компании «{companyName}»</p>
                             <div className='separate'/>
                             <h2 className='h2'>Распределите очки характеристик:</h2>
                             <div className='params-list'>
