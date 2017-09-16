@@ -196,7 +196,8 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 				Complete_project,
 				fmt.Sprintf("Проект %s завершен.",
 					project.Name)))
-		state.CharVarValue.Stress /= 2
+		state.CharVarValue.Stress *= 1
+		state.CharVarValue.Stress += -10
 		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
