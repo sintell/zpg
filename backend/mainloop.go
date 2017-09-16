@@ -12,6 +12,7 @@ func MainloopTick() {
 
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
+	fmt.Println(state)
 	if state.CharVarValue.Resting > 0 {
 		state.CharVarValue.Resting--
 		state.CharVarValue.Stress -= 10

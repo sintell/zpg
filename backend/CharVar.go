@@ -41,6 +41,8 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 			CharStatID:   charStat.ID,
 			SkillValueID: skills.ID,
 			SkillValue:   skills,
+			Level:        0,
+			Experience:   0,
 		}
 		if err := tx.Insert(charVar); err != nil {
 			return err
