@@ -38,8 +38,8 @@ export const authUser = (authData) => (dispatch) => {
         .then(({data}) => {
             dispatch(receiveLogin(data));
 
-            if (data.char) {
-                dispatch(receiveChar(data.char));
+            if (data.state) {
+                dispatch(receiveChar(data.state));
             }
         }, (e) => {
             window.alert(`Сорян, что-то упало. ${e.message}`);
