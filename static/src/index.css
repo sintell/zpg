@@ -320,6 +320,13 @@ p {
   top: 0;
 }
 
+.entity__image_rating {
+  width: 60px;
+  height: 60px;
+  display: block;
+  position: relative;
+}
+
 .entity__image_1 {background-image: url(images/char-1.png);}
 .entity__image_2 {background-image: url(images/char-2.png);}
 .entity__image_3 {background-image: url(images/char-3.png);}
@@ -327,6 +334,7 @@ p {
 .entity__image:after {
   content: '';
   background: url(images/char-mask.png) no-repeat 0 0;
+  background-size: cover;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -488,3 +496,40 @@ p {
   font-size: 14px;
 }
 /*  End Logs  ======================== */
+
+/*  Rating  ======================== */
+.rating-container {
+  width: 800px;
+  margin: 20px auto;
+}
+
+.rating-table {
+  width: 100%;
+  border: 1px solid #999;
+  border-spacing: 0;
+}
+
+.rating-table th {
+  border: 1px solid #999;
+  padding: 5px;
+  text-align: left;
+  border-bottom-width: 2px;
+}
+
+.rating-table td {
+  padding: 5px;
+  border: 1px solid #999;
+}
+
+.rating-table__col-place,
+.rating-table__col-level {
+  text-align: center;
+}
+
+.rating-skills {
+  display: flex;
+  width: 180px;
+  justify-content: space-around;
+  text-align: center;
+}
+/*  End Rating  ======================== */
