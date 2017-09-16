@@ -1,8 +1,12 @@
 package main
 
-import "flag"
+import (
+	"flag"
+	"fmt"
+)
 
 var configPath = flag.String("config", "config.json", "path to config.json")
+var resourcesPath = flag.String("resources", "", "path to resource")
 
 func init() {
 	flag.Parse()
@@ -11,6 +15,11 @@ func init() {
 	initGlobalState()
 	(&Scheduler{}).Start()
 	initStaticValues()
+	err := LoadProjectNamesFrom(fmt.Sprintf("%s/project_names.json", *resourcesPath))
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Println(GenerateProjectName())
 }
 
 func main() {
@@ -20,9 +29,9 @@ func main() {
 
 func initStaticValues() {
 	effects := make([]Effect, 0)
-	effects = append(effects, Effect{ID:0, Name: "Effect name 1", Description: "Все характеристики повышены на 5 на 4 часа",
+	effects = append(effects, Effect{ID: 0, Name: "Effect name 1", Description: "Все характеристики повышены на 5 на 4 часа",
 		Effect: &SkillValue{Prog: 5, Analyze: 5, Testing: 5}})
-	effects = append(effects, Effect{ID:1, Name: "Effect name 2", Description: "Все характеристики понижены на 10 на 7 часов",
+	effects = append(effects, Effect{ID: 1, Name: "Effect name 2", Description: "Все характеристики понижены на 10 на 7 часов",
 		Effect: &SkillValue{Prog: -10, Analyze: -10, Testing: -10}})
 	GetDB().Model(effects).Insert(effects)
 }
