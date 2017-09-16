@@ -40,29 +40,29 @@ func progress(state *InternalState) {
 			requiredValues := project.ReqValues
 			skills := state.CharVarValue.SkillValue
 			switch project.Status {
-			case ProjectStatus(Analyze):
+			case Analyze:
 				{
 					if progressValues.Analyze+skills.Analyze >= requiredValues.Analyze {
 						progressValues.Analyze = requiredValues.Analyze
-						switchState(state, project, ProjectStatus(Analyze), ProjectStatus(Prog))
+						switchState(state, project, Analyze, Prog)
 					} else {
 						progressValues.Analyze += skills.Analyze
 					}
 				}
-			case ProjectStatus(Prog):
+			case Prog:
 				{
 					if progressValues.Prog+skills.Prog >= requiredValues.Prog {
 						progressValues.Prog = requiredValues.Prog
-						switchState(state, project, ProjectStatus(Prog), ProjectStatus(Testing))
+						switchState(state, project, Prog, Testing)
 					} else {
 						progressValues.Prog += skills.Prog
 					}
 				}
-			case ProjectStatus(Testing):
+			case Testing:
 				{
 					if progressValues.Testing+skills.Testing >= requiredValues.Testing {
 						progressValues.Testing = requiredValues.Testing
-						switchState(state, project, ProjectStatus(Testing), ProjectStatus(Released))
+						switchState(state, project, Testing, Released)
 					} else {
 						progressValues.Testing += skills.Testing
 					}

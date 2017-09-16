@@ -15,7 +15,7 @@ func StateFromDB(id CharID) *InternalState {
 
 	GetDB().Model(cv).Column("char_var.*", "CharStat", "CurrentProject", "SkillValue").Select()
 	GetDB().Model(cv).Where("char_stat_id = ?", id).Select()
-	GetDB().Model(&p).Where("char_stat_id = ?", id).Select()
+	GetDB().Model(&p).Column("project.*", "ProgrValues", "ReqValues").Where("char_stat_id = ?", id).Select(&p)
 	GetDB().Model(&e).Where("char_stat_id = ?", id).Select()
 
 	state := &InternalState{
