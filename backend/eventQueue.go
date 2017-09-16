@@ -24,11 +24,17 @@ func (eq *EventQueue) push(event *Event) {
 	eq.mx.Lock()
 	defer eq.mx.Unlock()
 
-	eq.internalArray = append(
-		[]*Event{event},
-		eq.internalArray[:]...,
-	)
-	eq.internalArray[0] = event
+	if len(eq.internalArray) > eq.logDepth {
+		eq.internalArray = append(
+			[]*Event{event},
+			eq.internalArray[:len(eq.internalArray)-1]...,
+		)
+	} else {
+		eq.internalArray = append(
+			[]*Event{event},
+			eq.internalArray...,
+		)
+	}
 }
 
 func (eq *EventQueue) toExternalForm() []*EventQueueElement {
