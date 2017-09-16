@@ -11,7 +11,6 @@ import {fetchChar, TICK_MS} from '../../modules/character';
 class GamePlayContainer extends Component {
     componentDidMount() {
         this.tickTimeoutID = window.setInterval(() => {
-            console.log(new Date());
             this.props.fetchChar();
         }, TICK_MS);
     }
@@ -28,7 +27,7 @@ class GamePlayContainer extends Component {
 
         const todoProjects = projects.filter(item => (item.status === 'TODO'));
         const progProjects = projects.filter(item => (item.status === 'PROG'));
-        const testProjects = projects.filter(item => (item.status === 'TESTING'));
+        const testProjects = projects.filter(item => (item.status === 'TEST'));
         const analyzeProjects = projects.filter(item => (item.status === 'ANALYZE'));
         const releasedProjects = projects.filter(item => (item.status === 'RELEASED'));
 
