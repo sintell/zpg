@@ -56,7 +56,7 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 }
 
 func (cv *CharVar) rest() {
-	if cv.Stress % 10 > 0 {
+	if cv.Stress%10 > 0 {
 		cv.Resting += (1 + (cv.Stress / 10))
 	} else {
 		cv.Resting += (cv.Stress / 10)
