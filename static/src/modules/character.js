@@ -37,13 +37,9 @@ export const createChar = (charData) => (dispatch) => {
         responseType: 'json',
     })
         .then(({data}) => {
-            dispatch(receiveChar({
-                char: data,
-            }));
-
             data.createData = new Date();
-
             window.localStorage.setItem('ZPGchar', JSON.stringify(data));
+            dispatch(receiveChar(data));
         }, (e) => {
             window.alert(`Сорян, что-то упало. ${e.message}`);
         });

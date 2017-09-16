@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import {Route} from 'react-router-dom';
+import styled from 'styled-components';
 
 import routeMap from '../../modules/routePath';
 
@@ -10,6 +11,12 @@ import FormLogin from '../../components/formLogin';
 import FormSignUp from '../../components/formSignUp';
 import GamePlayContainer from '../../containers/gamePlay';
 import Ratings from '../../components/ratings';
+
+const Exit = styled.div`
+    position: fixed;
+    top: 19px;
+    right: 10px;
+`;
 
 window.onpopstate = function(event) {
     if (event) {
@@ -21,8 +28,15 @@ class App extends Component {
     componentDidMount() {
         this.route(this.props);
     }
+
     componentWillUpdate(nextProps) {
         this.route(nextProps);
+    }
+
+    logOut = () => {
+        window.localStorage.removeItem('ZPGtoken');
+        window.localStorage.removeItem('ZPGchar');
+        this.props.push(routeMap.home);
     }
 
     route(props) {
@@ -45,6 +59,10 @@ class App extends Component {
                 <Route path={routeMap.signUp} component={FormSignUp} />
                 <Route path={routeMap.signIn} component={FormLogin} />
                 <Route path={routeMap.ratings} component={Ratings} />
+                {this.props.loggedIn ?
+                    <Exit onClick={this.logOut}>
+                        <span className='link link_switch'>Выйти</span>
+                    </Exit> : ''}
             </div>
         );
     }

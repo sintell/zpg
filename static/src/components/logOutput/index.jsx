@@ -33,6 +33,10 @@ const eventTypes = {
         name: 'Эффект закончился',
         color: '#2196F3',
     },
+    FORCED_REST: {
+        name: 'Пошел спать',
+        color: '#999',
+    },
 };
 
 var formatter = new Intl.DateTimeFormat("ru", {
@@ -52,7 +56,8 @@ export default class LogOutputComponent extends Component {
             return (
                 <div key={item.order}>
                     <span className='logs__time'>{time}</span>
-                    <span className='logs__type' style={{color: eventTypes[item.event_type].color}}>
+                    <span className='logs__type'
+                          style={{color: eventTypes[item.event_type] && eventTypes[item.event_type].color}}>
                         [{eventTypes[item.event_type].name}]:&nbsp;
                     </span>
                     {item.desc}
