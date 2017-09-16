@@ -22,7 +22,8 @@ export default class Project extends Component {
                         <Progress
                             value={project.progress && project.progress.analyze}
                             maxValue={project.req_values && project.req_values.analyze}
-                            color={COLOR_ANALYZE} />
+                            color={COLOR_ANALYZE}
+                            title='Количество работы по аналитике' />
                     </div>
                     <div className='entity__row'>
                         <div className='entity__stat-project'>
@@ -31,7 +32,8 @@ export default class Project extends Component {
                         <Progress
                             value={project.progress && project.progress.prog}
                             maxValue={project.req_values && project.req_values.prog}
-                            color={COLOR_PROG} />
+                            color={COLOR_PROG}
+                            title='Количество работы по программированию' />
                     </div>
                     <div className='entity__row'>
                         <div className='entity__stat-project'>
@@ -40,7 +42,8 @@ export default class Project extends Component {
                         <Progress
                             value={project.progress && project.progress.test}
                             maxValue={project.req_values && project.req_values.test}
-                            color={COLOR_TEST} />
+                            color={COLOR_TEST}
+                            title='Количество работы по тестированию' />
                     </div>
                 </div>
             </div>

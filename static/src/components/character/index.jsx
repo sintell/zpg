@@ -25,11 +25,19 @@ class Character extends Component {
                 <div className='entity__info'>
                     <div className={`entity__image entity__image_${charImageIndex}`} />
                     <div className='entity__row'>
-                        <span className='entity__level'>{level}</span>
-                        <Progress value={exp} maxValue={maxExp} color={COLOR_EXP} />
+                        <span className='entity__level' title='Выш уровень'>{level}</span>
+                        <Progress
+                            value={exp}
+                            maxValue={maxExp}
+                            color={COLOR_EXP}
+                            title='Опыта до следующего уровня' />
                     </div>
                     <div className='entity__row'>
-                        <Progress value={stress} maxValue={maxStress} color={COLOR_STRESS} />
+                        <Progress
+                            value={stress}
+                            maxValue={maxStress}
+                            color={COLOR_STRESS}
+                            title='Стресс – если стресс очень большой, вы не можете работать' />
                         <span
                             className='sleep-button'
                             title='Пойти поспать, чтобы снять стресс'
