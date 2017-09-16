@@ -30,12 +30,7 @@ const (
 )
 
 func (p Project) isFinished() bool {
-	progrValues := p.ProgrValues
-	reqValues := p.ReqValues
-
-	return (progrValues.Analyze >= reqValues.Analyze) &&
-		(progrValues.Prog >= reqValues.Prog) &&
-		(progrValues.Testing >= reqValues.Testing)
+	return p.Status == Released
 }
 
 func NewProject(id CharID) (*Project, error) {
