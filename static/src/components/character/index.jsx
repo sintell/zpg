@@ -55,10 +55,10 @@ class Character extends Component {
                             <div className='entity__stat-value'>{skills.test}</div>
                         </div>
                     </div>
-                    <div className='effects'>
-                        <span className='effect effect_money' title='Описание эффекта' />
-                        <span className='effect effect_stand' title='Описание эффекта' />
-                    </div>
+                    {/*<div className='effects'>*/}
+                        {/*<span className='effect effect_money' title='Описание эффекта' />*/}
+                        {/*<span className='effect effect_stand' title='Описание эффекта' />*/}
+                    {/*</div>*/}
                 </div>
             </div>
         );
