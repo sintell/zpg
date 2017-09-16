@@ -1,10 +1,15 @@
 package main
 
-import "math/rand"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func getNextProjectAfterProjectComplete(characterID CharID) *Project {
 	projects := getUnfinishedProjects(characterID)
-	return projects[rand.Intn(len(projects))]
+	project := projects[rand.Intn(len(projects))]
+	fmt.Println("GET PROJECT WITH STATUS", project.Status)
+	return project
 }
 
 func getNextProjectAfterProjectStageComplete(characterID CharID) *Project {
