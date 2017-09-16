@@ -33,7 +33,7 @@ func (eq *EventQueue) push(event *Event) {
 func (eq *EventQueue) toExternalForm() []*EventQueueElement {
 	result := make([]*EventQueueElement, 0, len(eq.internalArray))
 	for index, value := range eq.internalArray {
-		result = append(result, &EventQueueElement{name: value.name, description: value.description,
+		result = append(result, &EventQueueElement{eventType: value.eventType, description: value.description,
 			timestamp: value.timestamp, order: index})
 	}
 	return result

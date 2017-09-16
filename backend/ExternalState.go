@@ -3,7 +3,7 @@ package main
 import "time"
 
 type EventQueueElement struct {
-	name        string    `json:"name"`
+	eventType   EventType `json:"event_type"`
 	description string    `json:"desc"`
 	timestamp   time.Time `json:"timestamp"`
 	order       int       `json:"order"`

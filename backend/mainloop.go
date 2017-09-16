@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func MainloopTick() {
@@ -94,14 +93,24 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 		newProject.Active = true
 		if newProject.Status == ProjectStatus(Todo) {
 			newProject.Status = ProjectStatus(Analyze)
+			state.EventQueue.push(
+				NewEvent(
+					New_project,
+					fmt.Sprintf("Проект %s завершен. Проект %s взят в работу",
+						project.Name, newProject.Name)))
+		} else {
+			state.EventQueue.push(
+				NewEvent(
+					Change_project_status,
+					fmt.Sprintf("Стадия %s проекта %s завершена. Переключение на проект %s",
+						statusFrom, project.Name, newProject.Name)))
 		}
-		state.EventQueue.push(&Event{name: "Event stage finish",
-			description: fmt.Sprintf("Стадия %s проекта %s закончена, переключение на проект %s", statusFrom,
-				project.Name, newProject.Name), timestamp: time.Now()})
 	} else {
-		state.EventQueue.push(&Event{name: "Event stage finish",
-			description: fmt.Sprintf("Проект %s переведен в стадию %s", project.Name, statusTo),
-			timestamp:   time.Now()})
+		state.EventQueue.push(
+			NewEvent(
+				Change_project_status,
+				fmt.Sprintf("Стадия %s проекта %s завершена",
+					statusFrom, project.Name)))
 	}
 }
 
