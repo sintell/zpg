@@ -48,6 +48,7 @@ func progress(state *InternalState) {
 					} else {
 						progressValues.Analyze += skills.Analyze
 					}
+					break
 				}
 			case Prog:
 				{
@@ -57,6 +58,7 @@ func progress(state *InternalState) {
 					} else {
 						progressValues.Prog += skills.Prog
 					}
+					break
 				}
 			case Testing:
 				{
@@ -66,6 +68,7 @@ func progress(state *InternalState) {
 					} else {
 						progressValues.Testing += skills.Testing
 					}
+					break
 				}
 			}
 			project.ProgrValues = progressValues
