@@ -64,6 +64,12 @@ func progress(state *InternalState) {
 
 func switchState(state *InternalState, project *Project, statusFrom ProjectStatus, statusTo ProjectStatus) {
 	project.Status = statusTo
+	if statusTo == ProjectStatus(Released) {
+		state.CharVarValue.Experience += 1
+		if state.CharVarValue.Experience >= 100 {
+			levelUp(state)
+		}
+	}
 	newProject := getNextProjectAfterProjectStageComplete(state.CharStatValue.ID)
 	if newProject.ID != project.ID {
 		project.Active = false
@@ -78,4 +84,9 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 		state.EventQueue.push(&Event{name: "Event stage finish",
 			description: fmt.Sprintf("Проект %s переведен в стадию %s", project.Name, statusTo)})
 	}
+}
+
+func levelUp(state *InternalState) {
+	state.CharVarValue.Level += 1
+	state.CharVarValue.Experience = 0
 }
