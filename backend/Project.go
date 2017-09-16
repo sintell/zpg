@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 
 	"github.com/go-pg/pg"
@@ -47,8 +48,8 @@ func NewProject(id CharID) (*Project, error) {
 		}
 		p = &Project{
 			CharStatID:    id,
-			Name:          "Project 1",
-			Description:   "Description 1",
+			Name:          fmt.Sprintf("%s %d", "Project", req.ID),
+			Description:   fmt.Sprintf("%s %d", "Description", req.ID),
 			ReqValuesID:   req.ID,
 			ReqValues:     req,
 			ProgrValuesID: progr.ID,
