@@ -1,9 +1,12 @@
 package main
 
+import "time"
+
 type EventQueueElement struct {
-	name        string `json:"name"`
-	description string `json:"desc"`
-	timestamp   int    `json:"timestamp"`
+	name        string    `json:"name"`
+	description string    `json:"desc"`
+	timestamp   time.Time `json:"timestamp"`
+	order       int       `json:"order"`
 }
 
 type ExternalState struct {
