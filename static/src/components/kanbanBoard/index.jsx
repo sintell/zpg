@@ -17,31 +17,31 @@ export default class KanbanBoardComponent extends Component {
                 <div className='board__col'>
                     <div className='board__title board__title_todo'>Todo</div>
                     <div className='board__content'>
-                        {this.renderProjectsTokanbanBoard(todoProjects, 'TODO')}
+                        {this.renderProjectsTokanbanBoard(todoProjects, 'todo')}
                     </div>
                 </div>
                 <div className='board__col'>
                     <div className='board__title board__title_analyze'>Analyze</div>
                     <div className='board__content'>
-                        {this.renderProjectsTokanbanBoard(analyzeProjects, 'ANALYZE')}
+                        {this.renderProjectsTokanbanBoard(analyzeProjects, 'analyze')}
                     </div>
                 </div>
                 <div className='board__col'>
                     <div className='board__title board__title_prog'>In progress</div>
                     <div className='board__content'>
-                        {this.renderProjectsTokanbanBoard(progProjects, 'PROG')}
+                        {this.renderProjectsTokanbanBoard(progProjects, 'prog')}
                     </div>
                 </div>
                 <div className='board__col'>
                     <div className='board__title board__title_test'>Testing</div>
                     <div className='board__content'>
-                        {this.renderProjectsTokanbanBoard(testProjects, 'TEST')}
+                        {this.renderProjectsTokanbanBoard(testProjects, 'test')}
                     </div>
                 </div>
                 <div className='board__col'>
                     <div className='board__title board__title_released'>Released</div>
                     <div className='board__content'>
-                        {this.renderProjectsTokanbanBoard(releasedProjects, 'RELEASED')}
+                        {this.renderProjectsTokanbanBoard(releasedProjects, 'released')}
                     </div>
                 </div>
             </div>

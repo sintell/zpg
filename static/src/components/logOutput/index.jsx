@@ -16,11 +16,11 @@ export default class LogOutputComponent extends Component {
                 name: 'Проект закончен',
                 color: '#4CAF50',
             },
-            WAS_EVENT: {
+            NEW_EVENT: {
                 name: 'Событие',
                 color: '#90CAF9',
             },
-            USE_EFFECT: {
+            NEW_EFFECT: {
                 name: 'Эффект',
                 color: '#2196F3',
             },
@@ -63,7 +63,7 @@ export default class LogOutputComponent extends Component {
             },
             {
                 text: 'Приступил к работе с проектом блабла',
-                type: 'USE_EFFECT',
+                type: 'NEW_EFFECT',
             },
         ];
 
