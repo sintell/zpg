@@ -1,14 +1,16 @@
 package main
 
 type RatingByExpResponse struct {
-	Name  string `json:"name"`
-	Level int    `json:"level"`
+	Name     string `json:"name"`
+	UserName string `json:"user_name"`
+	Level    int    `json:"level"`
+	CharId   CharID `json:"id"`
 }
 
 func getRatingByExp() ([]RatingByExpResponse, error) {
 	cv := []CharVar{}
 	err := GetDB().Model(&CharVar{}).
-		Column("char_var.*", "CharStat.name").
+		Column("char_var.*", "CharStat.name", "CharStat.User.login").
 		Order("level DESC").
 		Limit(10).
 		Select(&cv)
@@ -19,7 +21,7 @@ func getRatingByExp() ([]RatingByExpResponse, error) {
 
 	rp := []RatingByExpResponse{}
 	for _, charVar := range cv {
-		rp = append(rp, RatingByExpResponse{Name: charVar.CharStat.Name, Level: charVar.Level})
+		rp = append(rp, RatingByExpResponse{Name: charVar.CharStat.Name, Level: charVar.Level, CharId: charVar.CharStatID, UserName: charVar.CharStat.User.Login})
 	}
 
 	return rp, nil
