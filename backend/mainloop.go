@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func MainloopTick() {
 	charIDs := GetGlobalState().getIds()
 
@@ -59,11 +61,20 @@ func progress(state *InternalState) {
 	}
 }
 
-func switchState(state *InternalState, project *Project, statusTo ProjectStatus, statusFrom ProjectStatus) {
-	project.Status = statusFrom
+func switchState(state *InternalState, project *Project, statusFrom ProjectStatus, statusTo ProjectStatus) {
+	project.Status = statusTo
 	newProject := getNextProjectAfterProjectStageComplete(state.CharStatValue.ID)
 	if newProject.ID != project.ID {
 		project.Active = false
 		newProject.Active = true
+		if newProject.Status == ProjectStatus(Todo) {
+			newProject.Status = ProjectStatus(Analyze)
+		}
+		state.EventQueue.push(&Event{name: "Event stage finish",
+			description: fmt.Sprintf("Стадия %s проекта %s закончена, переключение на проект %s", statusFrom,
+				project.Name, newProject.Name)})
+	} else {
+		state.EventQueue.push(&Event{name: "Event stage finish",
+			description: fmt.Sprintf("Проект %s переведен в стадию %s", project.Name, statusTo)})
 	}
 }

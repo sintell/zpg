@@ -5,6 +5,7 @@ type InternalState struct {
 	CharVarValue  *CharVar
 	Projects      []*Project
 	ActiveEffects []*ActiveEffect
+	EventQueue    *EventQueue
 }
 
 func StateFromDB(id CharID) *InternalState {
@@ -22,11 +23,12 @@ func StateFromDB(id CharID) *InternalState {
 		CharVarValue:  cv,
 		Projects:      p,
 		ActiveEffects: e,
+		EventQueue:    NewEventQueue(),
 	}
 	return state
 }
 
 func NewInternalState(csv *CharStat, cvv *CharVar) *InternalState {
 	prj, _ := CreateProjectsFor(csv.ID)
-	return &InternalState{CharStatValue: csv, CharVarValue: cvv, Projects: prj}
+	return &InternalState{CharStatValue: csv, CharVarValue: cvv, Projects: prj, EventQueue: NewEventQueue()}
 }

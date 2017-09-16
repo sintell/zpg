@@ -31,8 +31,12 @@ type ServerConfig struct {
 }
 
 type SchedulerConfig struct {
-	PersistInterval time.Duration `json:"persist_interval"`
+	PersistInterval   time.Duration `json:"persist_interval"`
 	CalculateInterval time.Duration `json:"calculate_interval"`
+}
+
+type EventQueueConfig struct {
+	LogDepth int `json:"log_depth"`
 }
 
 func (sc *ServerConfig) Addr() string {
