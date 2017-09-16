@@ -23,7 +23,7 @@ func generateProjectReqValues(value int) int {
 }
 
 func generateProjectName() string {
-	return "new project ( " + string(rand.Intn(50)) + ")"
+	return GenerateProjectName()
 }
 
 func generateProjectDescription() string {
