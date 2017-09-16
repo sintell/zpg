@@ -10,7 +10,6 @@ const COLOR_STRESS = '#FF6D00';
 
 class Character extends Component {
     sleep = () => {
-        console.log(this.props);
         this.props.sendToSleep();
     }
     render() {
@@ -30,19 +29,28 @@ class Character extends Component {
                     </div>
                     <div className='entity__row'>
                         <Progress value={stress} maxValue={maxStress} color={COLOR_STRESS} />
-                        <span onClick={this.sleep}>Спать</span>
+                        <span
+                            className='sleep-button'
+                            title='Пойти поспать, чтобы снять стресс'
+                            onClick={this.sleep} />
                     </div>
                     <div className='entity__row'>
                         <div className='entity__stat'>
-                            <span className='icon-stat icon-stat_analyze' />
+                            <span
+                                className='icon-stat icon-stat_analyze'
+                                title='Аналитика – влияет на скорость выполнения задач по аналитике' />
                             <div className='entity__stat-value'>{skills.analyze}</div>
                         </div>
                         <div className='entity__stat'>
-                            <span className='icon-stat icon-stat_prog' />
+                            <span
+                                className='icon-stat icon-stat_prog'
+                                title='Программирование – влияет на скорость выполнения задач по программированию' />
                             <div className='entity__stat-value'>{skills.prog}</div>
                         </div>
                         <div className='entity__stat'>
-                            <span className='icon-stat icon-stat_test' />
+                            <span
+                                className='icon-stat icon-stat_test'
+                                title='Тестирование – влияет на скорость тестирования' />
                             <div className='entity__stat-value'>{skills.test}</div>
                         </div>
                     </div>

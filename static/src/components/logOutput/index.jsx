@@ -68,11 +68,9 @@ export default class LogOutputComponent extends Component {
         ];
 
         return (
-            <div className='logs-wrapper'>
-                <div className='cube' style={{background: '#2f2d2e'}}>
-                    <div className='logs'>
-                        {this.renderMessages(messages)}
-                    </div>
+            <div className='cube' style={{background: '#2f2d2e'}}>
+                <div className='logs'>
+                    {this.renderMessages(messages)}
                 </div>
             </div>
         );

@@ -283,10 +283,6 @@ p {
 
 
 /*  Game  ======================== */
-.game {
-  padding-bottom: 250px;
-}
-
 .game-info {
   display: flex;
   justify-content: space-between;
@@ -355,6 +351,7 @@ p {
 
 .entity__row {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .entity__stat {
@@ -382,6 +379,18 @@ p {
   text-align: right;
   font-size: 20px;
   font-weight: bold;
+}
+
+.sleep-button {
+  background: url(images/icon-sleep.png) no-repeat 0 0;
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin: -5px 0 0 10px;
+  cursor: pointer;
 }
 
 /*  End Entity  ======================== */
@@ -448,17 +457,27 @@ p {
   top: -5px;
   left: 50%;
 }
+
+.sleep {
+  background: url(images/relax.png) no-repeat 0 0;
+  width: 400px;
+  height: 242px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sleep:after {
+  content: '';
+  background: url(images/sleep.gif) no-repeat 0 0;
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: -30px;
+  left: 170px;
+}
 /*  End Board  ======================== */
 
 /*  Logs  ======================== */
-.logs-wrapper {
-  width: 1200px;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  margin-left: -600px;
-}
-
 .logs {
   box-sizing: border-box;
   height: 200px;
