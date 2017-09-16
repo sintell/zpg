@@ -15,7 +15,9 @@ const (
 	Change_project_status           = "CHANGE_PROJECT_STATUS"
 	Complete_project                = "COMPLETE_PROJECT"
 	New_event                       = "NEW_EVENT"
+	New_effect                      = "NEW_EFFECT"
 	Level_up                        = "LEVEL_UP"
+	Effect_expires                  = "EFFECT_EXPIRES"
 )
 
 func NewEvent(eventType EventType, description string) *Event {

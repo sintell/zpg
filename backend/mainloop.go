@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"math/rand"
 )
 
 func MainloopTick() {
@@ -23,7 +25,7 @@ func tickUser(charID CharID) {
 			fmt.Println(err.Error())
 		}
 	}
-
+	expireEvents(state)
 	fmt.Println(state)
 	if state.CharVarValue.Resting > 0 {
 		state.CharVarValue.Resting--
@@ -37,8 +39,77 @@ func tickUser(charID CharID) {
 	progress(state)
 }
 
-func randomEvents(state *InternalState) {
+func expireEvents(state *InternalState) {
+	newActiveEffects := make([]*ActiveEffect, 0)
+	for _, value := range state.ActiveEffects {
+		value.Expires--
+		if value.Expires == 0 {
+			state.EventQueue.push(
+				NewEvent(
+					Effect_expires,
+					"ифект экспайрс"))
+		} else {
+			newActiveEffects = append(newActiveEffects, value)
+		}
+	}
 
+	state.ActiveEffects = newActiveEffects
+}
+
+func randomEvents(state *InternalState) {
+	if rand.Intn(6) == 0 {
+		state.EventQueue.push(
+			NewEvent(
+				New_event,
+				"Огонь ивент"))
+	}
+
+	if rand.Intn(10) == 0 {
+		state.EventQueue.push(
+			NewEvent(
+				New_event,
+				"Вы словили баф на статы"))
+
+		var effect Effect
+
+		GetDB().Model(&effect).Where("id = ?", 0).Select()
+
+		state.ActiveEffects = append(state.ActiveEffects,
+			&ActiveEffect{
+				CharStat:   *state.CharStatValue,
+				CharStatID: state.CharStatValue.ID,
+				Expires:    4,
+				EffectID:   0,
+				Effect:     &effect})
+
+		state.EventQueue.push(
+			NewEvent(
+				New_effect,
+				effect.Description))
+	}
+
+	if rand.Intn(14) == 0 {
+		state.EventQueue.push(
+			NewEvent(
+				New_event,
+				"Вы словили дебаф на статы"))
+		var effect Effect
+
+		GetDB().Model(&effect).Where("id = ?", 1).Select()
+
+		state.ActiveEffects = append(state.ActiveEffects,
+			&ActiveEffect{
+				CharStat:   *state.CharStatValue,
+				CharStatID: state.CharStatValue.ID,
+				Expires:    5,
+				EffectID:   0,
+				Effect:     &effect})
+
+		state.EventQueue.push(
+			NewEvent(
+				New_effect,
+				effect.Description))
+	}
 }
 
 func progress(state *InternalState) {
@@ -54,7 +125,7 @@ func progress(state *InternalState) {
 						progressValues.Analyze = requiredValues.Analyze
 						switchState(state, project, Analyze, Prog)
 					} else {
-						progressValues.Analyze += skills.Analyze
+						progressValues.Analyze += int(math.Max(float64(skills.Analyze), 0))
 					}
 					break
 				}
@@ -64,7 +135,7 @@ func progress(state *InternalState) {
 						progressValues.Prog = requiredValues.Prog
 						switchState(state, project, Prog, Testing)
 					} else {
-						progressValues.Prog += skills.Prog
+						progressValues.Prog += int(math.Max(float64(skills.Prog), 0))
 					}
 					break
 				}
@@ -74,7 +145,7 @@ func progress(state *InternalState) {
 						progressValues.Testing = requiredValues.Testing
 						switchState(state, project, Testing, Released)
 					} else {
-						progressValues.Testing += skills.Testing
+						progressValues.Testing += int(math.Max(float64(skills.Testing), 0))
 					}
 					break
 				}
@@ -89,6 +160,11 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 	project.Status = statusTo
 	var newProject *Project
 	if statusTo == Released {
+		state.EventQueue.push(
+			NewEvent(
+				Complete_project,
+				fmt.Sprintf("Проект %s завершен.",
+					project.Name)))
 		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
@@ -107,8 +183,8 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 			state.EventQueue.push(
 				NewEvent(
 					New_project,
-					fmt.Sprintf("Проект %s завершен. Проект %s взят в работу",
-						project.Name, newProject.Name)))
+					fmt.Sprintf("Проект %s взят в работу",
+						newProject.Name)))
 		} else {
 			state.EventQueue.push(
 				NewEvent(
@@ -128,6 +204,10 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 func levelUp(state *InternalState) {
 	state.CharVarValue.Level += 1
 	state.CharVarValue.Experience = 0
+	state.EventQueue.push(
+		NewEvent(
+			Level_up,
+			"Уровень персонажа повышен"))
 }
 
 func countExpFromProject(project *Project, charVar *CharVar) int {

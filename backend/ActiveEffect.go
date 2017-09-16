@@ -1,7 +1,7 @@
 package main
 
 type ActiveEffect struct {
-	CharStatID int      `json:"-"`
+	CharStatID CharID   `json:"-"`
 	CharStat   CharStat `json:"-"`
 	Expires    int      `json:"expires"`
 	EffectID   int      `json:"-"`
