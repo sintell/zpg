@@ -7,8 +7,6 @@ const COLOR_STRESS = '#FF6D00';
 export default class Character extends Component {
     render() {
         const {level, exp, stress, skills, name} = this.props.char;
-        
-        console.log(this.props.char);
 
         return (
             <div className='entity'>

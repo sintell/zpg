@@ -5,7 +5,6 @@ import {receiveLogin} from './login';
 
 const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
 const RECEIVE_SIGNUP = 'RECEIVE_SIGNUP';
-const ERROR_SIGNUP = 'ERROR_SIGNUP';
 
 const receiveSignUp = state => ({
     type: RECEIVE_SIGNUP,
@@ -17,12 +16,7 @@ const requestSignUp = state => ({
     payload: state,
 });
 
-const errorSignUp = state => ({
-    type: ERROR_SIGNUP,
-    payload: state,
-});
-
-export const signUp = (signUpData) => (dispatch, getState) => {
+export const signUp = (signUpData) => (dispatch) => {
     dispatch(requestSignUp());
 
     return axios({
@@ -34,12 +28,7 @@ export const signUp = (signUpData) => (dispatch, getState) => {
         .then(({data}) => {
             dispatch(receiveSignUp(data));
             dispatch(receiveLogin(data));
-
-            // if (data.token) {
-            //     window.localStorage.setItem('ZPGtoken', data.token);
-            // }
         }, (e) => {
-            // dispatch(errorSignUp({message: e.message}));
             window.alert(`Сорян, что-то упало. ${e.message}`);
         });
 };
@@ -57,10 +46,5 @@ export default createReducer({
         ...state,
         isFetching: false,
         loggedIn: action.payload,
-    }),
-    [ERROR_SIGNUP]: (state, action) => ({
-        ...state,
-        isFetching: false,
-        error: action.payload,
     }),
 });

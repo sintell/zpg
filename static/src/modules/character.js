@@ -14,9 +14,8 @@ const requestChar = state => ({
     payload: state,
 });
 
-export const createChar = (charData) => (dispatch, getState) => {
+export const createChar = (charData) => (dispatch) => {
     dispatch(requestChar());
-    console.log(charData);
 
     return axios({
         method: 'post',
@@ -25,7 +24,6 @@ export const createChar = (charData) => (dispatch, getState) => {
         responseType: 'json',
     })
         .then(({data}) => {
-            console.log(data);
             dispatch(receiveChar({
                 char: data,
             }));

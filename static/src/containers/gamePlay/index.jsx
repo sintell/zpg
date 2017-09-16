@@ -6,14 +6,6 @@ import Project from '../../components/project';
 import KanbanBoard from '../../components/kanbanBoard';
 import LogOutput from '../../components/logOutput';
 
-const statuses = {
-    toDo: 'todo',
-    prog: 'prog',
-    test: 'test',
-    analyze: 'analyze',
-    relized: 'relized',
-};
-
 class GamePlayContainer extends Component {
     componentDidMount() {
         //fetch
@@ -21,7 +13,7 @@ class GamePlayContainer extends Component {
 
 
     render() {
-        const {isFetching, char, projects} = this.props;
+        const {char, projects} = this.props;
         if (!char) {
             return null;
         }
@@ -67,6 +59,5 @@ class GamePlayContainer extends Component {
 export default connect((state) => ({
     char: state.charData.char,
     projects: state.charData.projects,
-    isFetching: state.charData.isFetching,
 }), {
 })(GamePlayContainer);
