@@ -15,5 +15,5 @@ func rest (c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	GetGlobalState().get(charStat.ID).CharVarValue.rest()
-
+	return c.JSON(http.StatusOK, nil)
 }
