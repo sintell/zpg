@@ -51,8 +51,7 @@ p {
 
 /*  Global blocks  ======================== */
 .container {
-  width: 1000px;
-  padding: 0 20px;
+  width: 900px;
   margin: 0 auto;
 }
 
@@ -294,7 +293,7 @@ p {
 }
 
 .game-board {
-  margin: 0 100px 30px;
+  margin: 0 50px 30px;
 }
 
 .game-logs {
@@ -308,7 +307,7 @@ p {
 
 /*  Entity  ======================== */
 .entity {
-  margin: 20px;
+  margin: 10px;
 }
 
 .entity__info {
@@ -412,6 +411,31 @@ p {
   margin: -5px 0 0 10px;
   cursor: pointer;
 }
+
+.effects {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.effect {
+  background: no-repeat 0 0;
+  background-size: cover;
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  margin-left: -10px;
+}
+
+.effect_coffee {background-image: url(images/effect-coffee.png);}
+.effect_fish {background-image: url(images/effect-fish.png);}
+.effect_meetup {background-image: url(images/effect-meetup.png);}
+.effect_money {background-image: url(images/effect-money.png);}
+.effect_net {background-image: url(images/effect-net.png);}
+.effect_pizza {background-image: url(images/effect-pizza.png);}
+.effect_stand {background-image: url(images/effect-stand.png);}
+.effect_mac {background-image: url(images/effects-mac.png);}
 
 /*  End Entity  ======================== */
 
