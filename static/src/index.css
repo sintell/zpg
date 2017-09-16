@@ -126,6 +126,7 @@ p {
   width: 250px;
   height: 30px;
   padding: 3px;
+  font-size: 12px;
   position: relative;
   overflow: hidden;
 }
@@ -309,7 +310,7 @@ p {
 }
 
 .entity__image {
-  background: url(images/avatar.png) no-repeat 50% 50%;
+  background: url(images/char-1.png) no-repeat 0 0;
   background-size: cover;
   width: 120px;
   height: 120px;
@@ -319,9 +320,13 @@ p {
   top: 0;
 }
 
+.entity__image_1 {background-image: url(images/char-1.png);}
+.entity__image_2 {background-image: url(images/char-2.png);}
+.entity__image_3 {background-image: url(images/char-3.png);}
+
 .entity__image:after {
   content: '';
-  background: url(images/avatar-mask.png) no-repeat 50% 50%;
+  background: url(images/char-mask.png) no-repeat 0 0;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -330,6 +335,7 @@ p {
 }
 
 .entity__image_project {
+  background-image: url(images/project.png);
   border-radius: medium none;
   left: auto;
   right: 0;
