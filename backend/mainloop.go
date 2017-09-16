@@ -77,7 +77,7 @@ func progress(state *InternalState) {
 func switchState(state *InternalState, project *Project, statusFrom ProjectStatus, statusTo ProjectStatus) {
 	project.Status = statusTo
 	if statusTo == ProjectStatus(Released) {
-		state.CharVarValue.Experience += 1
+		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
 		}
@@ -102,4 +102,16 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 func levelUp(state *InternalState) {
 	state.CharVarValue.Level += 1
 	state.CharVarValue.Experience = 0
+}
+
+func countExpFromProject(project *Project, charVar *CharVar) int {
+	rv := project.ReqValues
+	cv := charVar.SkillValue
+	return countExpFromSkillValue(rv.Analyze, cv.Analyze) +
+		countExpFromSkillValue(rv.Prog, cv.Prog) +
+		countExpFromSkillValue(rv.Testing, cv.Testing)
+}
+
+func countExpFromSkillValue(reqValue, charValue int) int {
+	return reqValue/charValue + 1
 }
