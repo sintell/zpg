@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func rest (c echo.Context) error {
+func rest(c echo.Context) error {
 	user, err := userFromContext(c)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())

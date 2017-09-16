@@ -15,13 +15,22 @@ func MainloopTick() {
 
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
+	randomEvents(state)
 	fmt.Println(state)
 	if state.CharVarValue.Resting > 0 {
 		state.CharVarValue.Resting--
-		state.CharVarValue.Stress -= 10
+		if state.CharVarValue.Stress > 10 {
+			state.CharVarValue.Stress -= 10
+		} else {
+			state.CharVarValue.Stress = 0
+		}
 		return
 	}
 	progress(state)
+}
+
+func randomEvents(state *InternalState) {
+
 }
 
 func progress(state *InternalState) {
@@ -82,11 +91,11 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 		}
 		state.EventQueue.push(&Event{name: "Event stage finish",
 			description: fmt.Sprintf("Стадия %s проекта %s закончена, переключение на проект %s", statusFrom,
-				project.Name, newProject.Name), timestamp:time.Now()})
+				project.Name, newProject.Name), timestamp: time.Now()})
 	} else {
 		state.EventQueue.push(&Event{name: "Event stage finish",
 			description: fmt.Sprintf("Проект %s переведен в стадию %s", project.Name, statusTo),
-			timestamp:time.Now()})
+			timestamp:   time.Now()})
 	}
 }
 
