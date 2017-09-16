@@ -41,6 +41,7 @@ func initServer() *Server {
 
 	withAuth.GET("/state", signup)
 	withAuth.POST("/create_char", createChar)
+	withAuth.POST("/rest", rest)
 	withAuth.POST("/test", testToken)
 
 	return &Server{e, c}
