@@ -17,7 +17,7 @@ func NewUser(u *User) error {
 func (u *User) getCharacter() (*CharStat, error) {
 	cs := &CharStat{}
 
-	if err := GetDB().Select(&CharStat{UserID: u.ID}); err != nil {
+	if err := GetDB().Model(cs).Where("char_stat.user_id = ?", u.ID).First(); err != nil {
 		return nil, err
 	}
 	return cs, nil

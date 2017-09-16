@@ -13,10 +13,10 @@ func StateFromDB(id CharID) *InternalState {
 	var p []*Project
 	var e []*ActiveEffect
 
-	GetDB().Model(cv).Column("char_val.*", "CharStat", "CurrentProject", "SkillValue").Select()
+	GetDB().Model(cv).Column("char_var.*", "CharStat", "CurrentProject", "SkillValue").Select()
 	GetDB().Model(cv).Where("char_stat_id = ?", id).Select()
-	GetDB().Model(p).Column("projects.*", "ReqValues", "ProgrValues").Where("char_stat_id = ?", id).Select()
-	GetDB().Model(e).Where("char_stat_id = ?", id).Select()
+	GetDB().Model(&p).Where("char_stat_id = ?", id).Select()
+	GetDB().Model(&e).Where("char_stat_id = ?", id).Select()
 
 	state := &InternalState{
 		CharStatValue: cv.CharStat,
@@ -30,5 +30,11 @@ func StateFromDB(id CharID) *InternalState {
 
 func NewInternalState(csv *CharStat, cvv *CharVar) *InternalState {
 	prj, _ := CreateProjectsFor(csv.ID)
+	prj[0].Active = true
+	prj[0].Status = Analyze
+	cvv.CurrentProjectID = prj[0].ID
+	cvv.CurrentProject = prj[0]
+
+	cvv.Save()
 	return &InternalState{CharStatValue: csv, CharVarValue: cvv, Projects: prj, EventQueue: NewEventQueue()}
 }

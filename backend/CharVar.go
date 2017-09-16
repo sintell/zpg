@@ -55,6 +55,24 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 	return charStat, charVar, nil
 }
 
+func (cv *CharVar) Save() error {
+	if err := GetDB().RunInTransaction(func(tx *pg.Tx) error {
+		if err := tx.Insert(cv.CurrentProject); err != nil {
+			return err
+		}
+		if err := tx.Insert(cv.CharStat); err != nil {
+			return err
+		}
+		if err := tx.Insert(cv.SkillValue); err != nil {
+			return err
+		}
+		return nil
+	}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (cv *CharVar) rest() {
 	if cv.Stress%10 > 0 {
 		cv.Resting += (1 + (cv.Stress / 10))
