@@ -7,6 +7,8 @@ const COLOR_STRESS = '#FF6D00';
 export default class Character extends Component {
     render() {
         const {level, exp, stress, skills, name} = this.props.char;
+        const maxExp = 100;
+        const maxStress = 100;
 
         return (
             <div className='entity'>
@@ -15,10 +17,10 @@ export default class Character extends Component {
                     <div className='entity__image' />
                     <div className='entity__row'>
                         <span className='entity__level'>{level}</span>
-                        <Progress value={exp} color={COLOR_EXP} />
+                        <Progress value={exp} maxValue={maxExp} color={COLOR_EXP} />
                     </div>
                     <div className='entity__row'>
-                        <Progress value={stress} color={COLOR_STRESS} />
+                        <Progress value={stress} maxValue={maxStress} color={COLOR_STRESS} />
                     </div>
                     <div className='entity__row'>
                         <div className='entity__stat'>
