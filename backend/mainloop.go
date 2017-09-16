@@ -76,13 +76,16 @@ func progress(state *InternalState) {
 
 func switchState(state *InternalState, project *Project, statusFrom ProjectStatus, statusTo ProjectStatus) {
 	project.Status = statusTo
+	var newProject *Project
 	if statusTo == ProjectStatus(Released) {
 		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
 		}
+		newProject = getNextProjectAfterProjectComplete(state.CharStatValue.ID)
+	} else {
+		newProject = getNextProjectAfterProjectStageComplete(state.CharStatValue.ID)
 	}
-	newProject := getNextProjectAfterProjectStageComplete(state.CharStatValue.ID)
 	if newProject.ID != project.ID {
 		project.Active = false
 		newProject.Active = true
