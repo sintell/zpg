@@ -91,6 +91,8 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 	if newProject.ID != project.ID {
 		project.Active = false
 		newProject.Active = true
+		state.CharVarValue.CurrentProject = newProject
+		state.CharVarValue.CurrentProjectID = newProject.ID
 		if newProject.Status == ProjectStatus(Todo) {
 			newProject.Status = ProjectStatus(Analyze)
 			state.EventQueue.push(
