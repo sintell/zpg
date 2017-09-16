@@ -16,6 +16,7 @@ func MainloopTick() {
 
 func tickUser(charID CharID) {
 	state := GetGlobalState().get(charID)
+	state.CharVarValue.Stress ++
 	randomEvents(state)
 
 	if needToGenerateProject(charID) {
@@ -165,6 +166,7 @@ func switchState(state *InternalState, project *Project, statusFrom ProjectStatu
 				Complete_project,
 				fmt.Sprintf("Проект %s завершен.",
 					project.Name)))
+		state.CharVarValue.Stress /= 2
 		state.CharVarValue.Experience += countExpFromProject(project, state.CharVarValue)
 		if state.CharVarValue.Experience >= 100 {
 			levelUp(state)
@@ -208,6 +210,31 @@ func levelUp(state *InternalState) {
 		NewEvent(
 			Level_up,
 			"Уровень персонажа повышен"))
+	state.CharVarValue.Stress = 0
+	progIncrease := rand.Intn(5)
+	testIncrease := rand.Intn(5)
+	analyzeIncrease := rand.Intn(5)
+	state.CharVarValue.SkillValue.Prog += progIncrease;
+	if progIncrease > 0 {
+		state.EventQueue.push(
+			NewEvent(
+				Level_up,
+				fmt.Sprintf("Навык программирования повышен на %s", progIncrease)))
+	}
+	state.CharVarValue.SkillValue.Testing += testIncrease;
+	if testIncrease > 0 {
+		state.EventQueue.push(
+			NewEvent(
+				Level_up,
+				fmt.Sprintf("Навык тестирования повышен на %s", testIncrease)))
+	}
+	state.CharVarValue.SkillValue.Analyze += analyzeIncrease;
+	if analyzeIncrease > 0 {
+		state.EventQueue.push(
+			NewEvent(
+				Level_up,
+				fmt.Sprintf("Навык аналитики повышен на %s", analyzeIncrease)))
+	}
 }
 
 func countExpFromProject(project *Project, charVar *CharVar) int {
