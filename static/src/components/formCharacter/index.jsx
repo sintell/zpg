@@ -47,7 +47,7 @@ class FormCharacter extends Component {
         const companyName = 'Большие Тити';
 
         return (
-            <form className='popup popup_reg' onSubmit={this.submit}>
+            <form className='popup popup_char' onSubmit={this.submit}>
                 <div className='cube'>
                     <div className='form-padding'>
                         <div className='create-char'>
@@ -75,7 +75,9 @@ class FormCharacter extends Component {
                                             name='analyze'
                                             onClick={this.changeAnalize} />
                                         <span className='param-item__name'>
-                                            Аналитика
+                                            <span
+                                                className='icon-stat icon-stat_analyze'
+                                                title='Аналитика – влияет на скорость выполнения задач по аналитике' />
                                             <span className='param-value'>{this.state.analyze}</span>
                                         </span>
                                         <span
@@ -91,7 +93,10 @@ class FormCharacter extends Component {
                                             name='prog'
                                             onClick={this.changeAnalize} />
                                         <span className='param-item__name'>
-                                            Программирование
+                                            <span
+                                                className='icon-stat icon-stat_prog'
+                                                title='Программирование – влияет на скорость выполнения задач
+                                                по программированию' />
                                             <span className='param-value'>{this.state.prog}</span>
                                         </span>
                                         <span
@@ -107,7 +112,9 @@ class FormCharacter extends Component {
                                             name='test'
                                             onClick={this.changeAnalize} />
                                         <span className='param-item__name'>
-                                            Тестирование
+                                            <span
+                                                className='icon-stat icon-stat_test'
+                                                title='Тестирование – влияет на скорость тестирования' />
                                             <span className='param-value'>{this.state.test}</span>
                                         </span>
                                         <span
@@ -119,7 +126,7 @@ class FormCharacter extends Component {
                                 </div>
                                 <div className='params-list__item'>
                                     <p>Осталось очков:</p>
-                                    <span className='param-value param-value_big'>{this.state.countScore}</span>
+                                    <div className='param-value param-value_big'>{this.state.countScore}</div>
                                 </div>
                             </div>
                             <div className='separate' />
