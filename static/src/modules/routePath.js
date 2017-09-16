@@ -3,5 +3,6 @@ export default {
     signUp: '/signup',
     signIn: '/signin',
     createChar: '/create-char',
+    ratings: '/ratings',
     game: '/game',
 };

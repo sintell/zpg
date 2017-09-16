@@ -9,6 +9,7 @@ import FormCharacter from '../../components/formCharacter';
 import FormLogin from '../../components/formLogin';
 import FormSignUp from '../../components/formSignUp';
 import GamePlayContainer from '../../containers/gamePlay';
+import Ratings from '../../components/ratings';
 
 window.onpopstate = function(event) {
     if (event) {
@@ -25,11 +26,13 @@ class App extends Component {
     }
 
     route(props) {
-        if (!props.loggedIn && window.location.pathname !== routeMap.signUp) {
+        const path = window.location.pathname;
+
+        if (!props.loggedIn && path !== routeMap.signUp && path !== routeMap.ratings) {
             props.push(routeMap.signIn);
-        } else if (props.loggedIn && !props.charExist) {
+        } else if (props.loggedIn && !props.charExist && path !== routeMap.ratings) {
             props.push(routeMap.createChar);
-        } else if (props.loggedIn) {
+        } else if (props.loggedIn && path !== routeMap.ratings) {
             props.push(routeMap.game);
         }
     }
@@ -41,6 +44,7 @@ class App extends Component {
                 <Route path={routeMap.game} component={GamePlayContainer} />
                 <Route path={routeMap.signUp} component={FormSignUp} />
                 <Route path={routeMap.signIn} component={FormLogin} />
+                <Route path={routeMap.ratings} component={Ratings} />
             </div>
         );
     }
