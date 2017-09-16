@@ -18,6 +18,7 @@ const (
 	New_effect                      = "NEW_EFFECT"
 	Level_up                        = "LEVEL_UP"
 	Effect_expires                  = "EFFECT_EXPIRES"
+	Forced_rest                     = "FORCED_REST"
 )
 
 func NewEvent(eventType EventType, description string) *Event {

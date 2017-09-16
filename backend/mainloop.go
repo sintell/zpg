@@ -40,6 +40,10 @@ func tickUser(charID CharID) {
 	if state.CharVarValue.Stress >= 100 {
 		state.CharVarValue.Stress = 100
 		state.CharVarValue.Resting = 10
+		state.EventQueue.push(
+			NewEvent(
+				Forced_rest,
+				"Слишком высокий стресс. Персонаж идет отдыхать"))
 		return 
 	}
 	progress(state)

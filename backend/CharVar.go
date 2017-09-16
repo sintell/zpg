@@ -13,6 +13,7 @@ type CharVar struct {
 	SkillValue       *SkillValue `json:"skills"`
 	Level            int         `json:"level"`
 	Experience       int         `json:"exp"`
+	WIPLimits        *SkillValue `json:"wip_limits"`
 }
 
 func createCharacter(userID int, name string, company string, prog int, testing int, analyze int) (
@@ -43,6 +44,7 @@ func createCharacter(userID int, name string, company string, prog int, testing 
 			SkillValue:   skills,
 			Level:        0,
 			Experience:   0,
+			WIPLimits:&SkillValue{Prog:2, Testing:2, Analyze:2},
 		}
 		if err := tx.Insert(charVar); err != nil {
 			return err
@@ -64,6 +66,9 @@ func (cv *CharVar) Save() error {
 			return err
 		}
 		if err := tx.Insert(cv.SkillValue); err != nil {
+			return err
+		}
+		if err := tx.Insert(cv.WIPLimits); err != nil {
 			return err
 		}
 		return nil

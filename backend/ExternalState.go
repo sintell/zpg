@@ -3,10 +3,10 @@ package main
 import "time"
 
 type EventQueueElement struct {
-	eventType   EventType `json:"event_type"`
-	description string    `json:"desc"`
-	timestamp   time.Time `json:"timestamp"`
-	order       int       `json:"order"`
+	EventType   EventType `json:"event_type"`
+	Description string    `json:"desc"`
+	Timestamp   time.Time `json:"timestamp"`
+	Order       int       `json:"order"`
 }
 
 type ExternalState struct {
