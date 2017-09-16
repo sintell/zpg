@@ -8,7 +8,7 @@ export const TICK_MS = 500;
 
 export const receiveChar = state => ({
     type: RECEIVE_CHAR,
-    payload: state.char,
+    payload: state,
 });
 
 const requestChar = state => ({
@@ -64,14 +64,9 @@ export const fetchChar = () => (dispatch) => {
         responseType: 'json',
     })
         .then(({data}) => {
-            console.log(data);
-            dispatch(receiveChar({
-                char: data,
-            }));
+            dispatch(receiveChar(data));
 
             window.localStorage.setItem('ZPGchar', JSON.stringify(data));
-        }, (e) => {
-            // window.alert(`Сорян, что-то упало. ${e.message}`);
         });
 };
 
@@ -81,7 +76,7 @@ export const sendToSleep = () => (dispatch) => {
         url: 'game/rest',
         responseType: 'json',
     })
-        .then(({data}) => {
+        .then(({}) => {
             dispatch(sleepChar({
                 sleep: true,
             }));
@@ -96,6 +91,7 @@ export default createReducer({
     isFetching: false,
     char: char && char.char,
     projects: char && char.projects,
+    events: char && char.events,
     sleep: false,
 }, {
     [REQUEST_CHAR]: state => ({
@@ -107,6 +103,7 @@ export default createReducer({
         isFetching: false,
         char: action.payload && action.payload.char,
         projects: action.payload && action.payload.projects,
+        events: action.payload && action.payload.events,
     }),
     [SLEEP_CHAR]: (state, action) => ({
         ...state,

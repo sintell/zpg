@@ -12,6 +12,7 @@ class Character extends Component {
     sleep = () => {
         this.props.sendToSleep();
     }
+
     render() {
         const {id, level, exp, stress, skills, name} = this.props.char;
         const maxExp = 100;

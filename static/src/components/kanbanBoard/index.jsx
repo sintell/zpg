@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import bubble from './bubble.mp3';
 
 export default class KanbanBoardComponent extends Component {
     renderProjectsTokanbanBoard(projects, type) {
         return projects.map((item) => {
             return (
-                <div className={`sticker sticker_${type}`} key={item.id}>{item.name}</div>
+                <div key={item.id}>
+                    <div className={`sticker sticker_${type}`}>{item.name}</div>
+                    {type === 'released' ? <audio src={bubble} autoPlay />: ''}
+                </div>
             );
         });
     }

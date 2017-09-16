@@ -23,7 +23,6 @@ export const fetchRating = () => (dispatch) => {
         responseType: 'json',
     })
         .then(({data}) => {
-            console.log(data);
             dispatch(receiveRating(data));
         }, (e) => {
             window.alert(`Сорян, что-то упало. ${e.message}`);

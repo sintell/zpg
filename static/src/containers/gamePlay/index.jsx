@@ -21,7 +21,8 @@ class GamePlayContainer extends Component {
     }
 
     render() {
-        const {char, projects} = this.props;
+        const {char, projects, events} = this.props;
+
         if (!char) {
             return null;
         }
@@ -48,7 +49,7 @@ class GamePlayContainer extends Component {
                         { activeProject ? <Project project={activeProject} /> : ''}
                     </div>
                     <div className='game-board'>
-                        {char.resting > 0  ? <SleepChar /> :
+                        {char.resting > 0 ? <SleepChar /> :
                         <KanbanBoard
                             todoProjects={todoProjects}
                             progProjects={progProjects}
@@ -57,9 +58,7 @@ class GamePlayContainer extends Component {
                             releasedProjects={releasedProjects} />
                         }
                     </div>
-                    <div className='game-logs'>
-                        <LogOutput />
-                    </div>
+                    {events ? <div className='game-logs'><LogOutput messages={events} /></div> : ''}
                 </div>
             </div>
         );
@@ -69,6 +68,7 @@ class GamePlayContainer extends Component {
 export default connect((state) => ({
     char: state.charData.char,
     projects: state.charData.projects,
+    events: state.charData.events,
 }), {
     fetchChar,
 })(GamePlayContainer);
