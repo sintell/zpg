@@ -5,6 +5,7 @@ import Character from '../../components/character';
 import Project from '../../components/project';
 import KanbanBoard from '../../components/kanbanBoard';
 import LogOutput from '../../components/logOutput';
+import SleepChar from '../../components/sleepChar';
 
 import {fetchChar, TICK_MS} from '../../modules/character';
 
@@ -47,12 +48,14 @@ class GamePlayContainer extends Component {
                         { activeProject ? <Project project={activeProject} /> : ''}
                     </div>
                     <div className='game-board'>
+                        {char.resting > 0  ? <SleepChar /> :
                         <KanbanBoard
                             todoProjects={todoProjects}
                             progProjects={progProjects}
                             testProjects={testProjects}
                             analyzeProjects={analyzeProjects}
                             releasedProjects={releasedProjects} />
+                        }
                     </div>
                     <div className='game-logs'>
                         <LogOutput />

@@ -3,6 +3,7 @@ import createReducer from './createReducer';
 
 const REQUEST_CHAR = 'REQUEST_CHAR';
 const RECEIVE_CHAR = 'RECEIVE_CHAR';
+const SLEEP_CHAR = 'SLEEP_CHAR';
 export const TICK_MS = 500;
 
 export const receiveChar = state => ({
@@ -12,6 +13,11 @@ export const receiveChar = state => ({
 
 const requestChar = state => ({
     type: REQUEST_CHAR,
+    payload: state,
+});
+
+const sleepChar = state => ({
+    type: SLEEP_CHAR,
     payload: state,
 });
 
@@ -43,11 +49,11 @@ export const createChar = (charData) => (dispatch) => {
         });
 };
 
-export const fetchChar = (charData) => (dispatch) => {
+export const fetchChar = () => (dispatch) => {
     const char = getCharDataInLocalStorage();
 
     if (char && char.char.createData - new Date() < TICK_MS) {
-        return
+        return;
     }
 
     dispatch(requestChar());
@@ -55,7 +61,6 @@ export const fetchChar = (charData) => (dispatch) => {
     return axios({
         method: 'get',
         url: 'game/state',
-        data: charData,
         responseType: 'json',
     })
         .then(({data}) => {
@@ -70,12 +75,28 @@ export const fetchChar = (charData) => (dispatch) => {
         });
 };
 
+export const sendToSleep = () => (dispatch) => {
+    return axios({
+        method: 'post',
+        url: 'game/rest',
+        responseType: 'json',
+    })
+        .then(({data}) => {
+            dispatch(sleepChar({
+                sleep: true,
+            }));
+        }, (e) => {
+            window.alert(`Сорян, что-то упало. ${e.message}`);
+        });
+};
+
 const char = getCharDataInLocalStorage();
 
 export default createReducer({
     isFetching: false,
     char: char && char.char,
     projects: char && char.projects,
+    sleep: false,
 }, {
     [REQUEST_CHAR]: state => ({
         ...state,
@@ -86,5 +107,10 @@ export default createReducer({
         isFetching: false,
         char: action.payload && action.payload.char,
         projects: action.payload && action.payload.projects,
+    }),
+    [SLEEP_CHAR]: (state, action) => ({
+        ...state,
+        isFetching: false,
+        sleep: action.payload,
     }),
 });

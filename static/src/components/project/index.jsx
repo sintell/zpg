@@ -20,8 +20,8 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_analyze' />
                         </div>
                         <Progress
-                            value={project.progress.analyze}
-                            maxValue={project.req_values.analyze}
+                            value={project.progress && project.progress.analyze}
+                            maxValue={project.req_values && project.req_values.analyze}
                             color={COLOR_ANALYZE} />
                     </div>
                     <div className='entity__row'>
@@ -29,8 +29,8 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_prog' />
                         </div>
                         <Progress
-                            value={project.progress.prog}
-                            maxValue={project.req_values.prog}
+                            value={project.progress && project.progress.prog}
+                            maxValue={project.req_values && project.req_values.prog}
                             color={COLOR_PROG} />
                     </div>
                     <div className='entity__row'>
@@ -38,8 +38,8 @@ export default class Project extends Component {
                             <span className='icon-stat icon-stat_test' />
                         </div>
                         <Progress
-                            value={project.progress.test}
-                            maxValue={project.req_values.test}
+                            value={project.progress && project.progress.test}
+                            maxValue={project.req_values && project.req_values.test}
                             color={COLOR_TEST} />
                     </div>
                 </div>

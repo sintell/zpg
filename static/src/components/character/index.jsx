@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Progress from '../progress';
+
+import {sendToSleep} from '../../modules/character';
 
 const COLOR_EXP = '#607D8B';
 const COLOR_STRESS = '#FF6D00';
 
-export default class Character extends Component {
+class Character extends Component {
+    sleep = () => {
+        console.log(this.props);
+        this.props.sendToSleep();
+    }
     render() {
         const {id, level, exp, stress, skills, name} = this.props.char;
         const maxExp = 100;
@@ -22,6 +30,7 @@ export default class Character extends Component {
                     </div>
                     <div className='entity__row'>
                         <Progress value={stress} maxValue={maxStress} color={COLOR_STRESS} />
+                        <span onClick={this.sleep}>Спать</span>
                     </div>
                     <div className='entity__row'>
                         <div className='entity__stat'>
@@ -43,3 +52,8 @@ export default class Character extends Component {
     }
 }
 
+export default connect(state => ({
+    sleep: state.charData.sleep,
+}), {
+    sendToSleep,
+})(Character);
