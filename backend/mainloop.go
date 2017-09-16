@@ -48,7 +48,7 @@ func tickUser(charID CharID) {
 			NewEvent(
 				Forced_rest,
 				"Слишком высокий стресс. Персонаж идет отдыхать"))
-		return 
+		return
 	}
 	progress(state)
 }
@@ -66,9 +66,11 @@ func increaseFinishedProjectTimeInRelease(id CharID) {
 }
 
 func removeOldFinishedProjects(id CharID) {
-	GetGlobalState().get(id).Projects = append(Filter(getFinishedProjects(id), func(project *Project) bool {
+	pToRemove := Filter(getFinishedProjects(id), func(project *Project) bool {
 		return !project.isToRemove()
-	}), getUnfinishedProjects(id)...)
+	})
+	GetDB().Model(&pToRemove).Delete()
+	GetGlobalState().get(id).Projects = append(pToRemove, getUnfinishedProjects(id)...)
 }
 
 func expireEvents(state *InternalState) {
