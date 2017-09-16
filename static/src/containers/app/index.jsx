@@ -16,7 +16,7 @@ import Ratings from '../../components/ratings';
 
 const Exit = styled.div`
     position: fixed;
-    top: 19px;
+    bottom: 20px;
     right: 10px;
 `;
 
@@ -63,7 +63,7 @@ class App extends Component {
                 <Route path={routeMap.ratings} component={Ratings} />
                 {this.props.loggedIn ?
                     <Exit onClick={this.logOut}>
-                        <span className='link link_switch'>Выйти</span>
+                        <span className='button button-s'>Выйти</span>
                     </Exit> : ''}
             </div>
         );
