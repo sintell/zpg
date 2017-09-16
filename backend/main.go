@@ -19,7 +19,6 @@ func init() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Println(GenerateProjectName())
 }
 
 func main() {
@@ -30,8 +29,8 @@ func main() {
 func initStaticValues() {
 	effects := make([]Effect, 0)
 	effects = append(effects, Effect{ID: 0, Name: "Effect name 1", Description: "Все характеристики повышены на 5 на 4 часа",
-		Effect: &SkillValue{Prog: 5, Analyze: 5, Testing: 5}})
-	effects = append(effects, Effect{ID:1, Name: "Effect name 2", Description: "Все характеристики понижены на 2 на 5 часов",
-		Effect: &SkillValue{Prog: -2, Analyze: -2, Testing: -2}})
+		Value: &SkillValue{Prog: 5, Analyze: 5, Testing: 5}})
+	effects = append(effects, Effect{ID: 1, Name: "Effect name 2", Description: "Все характеристики понижены на 2 на 5 часов",
+		Value: &SkillValue{Prog: -2, Analyze: -2, Testing: -2}})
 	GetDB().Model(effects).Insert(effects)
 }

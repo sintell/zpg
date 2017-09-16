@@ -1,7 +1,6 @@
 package main
 
 import (
-	"math"
 	"sync"
 )
 
@@ -22,15 +21,20 @@ func NewEventQueue() *EventQueue {
 }
 
 func (eq *EventQueue) push(event *Event) {
+	eq.mx.Lock()
+	defer eq.mx.Unlock()
 
 	eq.internalArray = append(
 		[]*Event{event},
-		eq.internalArray[:int(math.Max(float64(eq.logDepth-1), float64(len(eq.internalArray))))]...,
+		eq.internalArray[:]...,
 	)
 	eq.internalArray[0] = event
 }
 
 func (eq *EventQueue) toExternalForm() []*EventQueueElement {
+	eq.mx.Lock()
+	defer eq.mx.Unlock()
+
 	result := make([]*EventQueueElement, 0, len(eq.internalArray))
 	for index, value := range eq.internalArray {
 		result = append(result, &EventQueueElement{EventType: value.eventType, Description: value.description,

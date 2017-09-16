@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -15,9 +14,6 @@ type GlobalState struct {
 func (gs GlobalState) get(id CharID) *InternalState {
 	gs.mx.RLock()
 	defer gs.mx.RUnlock()
-
-	fmt.Printf("%+v", gs.states[id])
-	fmt.Println("get state for", id)
 
 	return gs.states[id]
 }
@@ -60,7 +56,6 @@ func (gs GlobalState) load() GlobalState {
 	GetDB().Model(&CharStat{}).Column("id").Select(&Ids)
 	for _, id := range Ids {
 		gs.states[id] = StateFromDB(id)
-		fmt.Printf("%+v", gs.states[id])
 	}
 	return gs
 }

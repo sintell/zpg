@@ -26,12 +26,9 @@ func tickUser(charID CharID) {
 	if needToGenerateProject(charID) {
 		if p, err := generateProject(state.CharVarValue); p != nil && err == nil {
 			state.Projects = append(state.Projects, p)
-		} else {
-			fmt.Println(err.Error())
 		}
 	}
 	expireEvents(state)
-	fmt.Println(state)
 	if state.CharVarValue.Resting > 0 {
 		state.CharVarValue.Resting--
 		if state.CharVarValue.Stress > 10 {
@@ -110,11 +107,11 @@ func randomEvents(state *InternalState) {
 
 		state.ActiveEffects = append(state.ActiveEffects,
 			&ActiveEffect{
-				CharStat:   *state.CharStatValue,
-				CharStatID: state.CharStatValue.ID,
-				Expires:    4,
-				EffectID:   0,
-				Effect:     &effect})
+				CharStat:    *state.CharStatValue,
+				CharStatID:  state.CharStatValue.ID,
+				Expires:     4,
+				EffectID:    0,
+				EffectValue: &effect})
 
 		state.EventQueue.push(
 			NewEvent(
@@ -133,11 +130,11 @@ func randomEvents(state *InternalState) {
 
 		state.ActiveEffects = append(state.ActiveEffects,
 			&ActiveEffect{
-				CharStat:   *state.CharStatValue,
-				CharStatID: state.CharStatValue.ID,
-				Expires:    5,
-				EffectID:   0,
-				Effect:     &effect})
+				CharStat:    *state.CharStatValue,
+				CharStatID:  state.CharStatValue.ID,
+				Expires:     5,
+				EffectID:    0,
+				EffectValue: &effect})
 
 		state.EventQueue.push(
 			NewEvent(

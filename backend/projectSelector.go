@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -9,7 +8,6 @@ func getNextProjectAfterProjectComplete(characterID CharID) *Project {
 	projects := getUnfinishedProjects(characterID)
 	projects = filterByWIPLimits(projects, characterID)
 	project := projects[rand.Intn(len(projects))]
-	fmt.Println("GET PROJECT WITH STATUS", project.Status)
 	return project
 }
 

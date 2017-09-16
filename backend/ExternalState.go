@@ -1,6 +1,8 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 type EventQueueElement struct {
 	EventType   EventType `json:"event_type"`
@@ -26,9 +28,12 @@ func from(isv *InternalState) *ExternalState {
 	result.Projects = isv.Projects
 	result.ActiveEffects = isv.ActiveEffects
 	for _, effect := range result.ActiveEffects {
-		result.Character.CharVar.SkillValue.Prog += effect.Effect.Effect.Prog
-		result.Character.CharVar.SkillValue.Testing += effect.Effect.Effect.Testing
-		result.Character.CharVar.SkillValue.Analyze += effect.Effect.Effect.Analyze
+		if effect.EffectValue.Value == nil {
+			continue
+		}
+		result.Character.CharVar.SkillValue.Prog += effect.EffectValue.Value.Prog
+		result.Character.CharVar.SkillValue.Testing += effect.EffectValue.Value.Testing
+		result.Character.CharVar.SkillValue.Analyze += effect.EffectValue.Value.Analyze
 	}
 	result.Events = isv.EventQueue.toExternalForm()
 	return result
